@@ -9,6 +9,10 @@
     <meta property="og:title" content="Sanket Brahmbhatt | QA Manual Tester">
     <meta property="og:description" content="Detail-oriented QA Manual Tester with 2+ years of experience in Software Quality Assurance.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sanketbrahmbhatt.com">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sanket Brahmbhatt | QA Manual Tester">
     <meta name="theme-color" content="#0a0a0f">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,24 +36,48 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
 
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
     <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="responsive.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- EmailJS SDK -->
+    <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Sanket Brahmbhatt",
+        "jobTitle": "QA Manual Tester",
+        "email": "sanketbarot3901@gmail.com",
+        "telephone": "+917487980840",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Ahmedabad",
+            "addressCountry": "IN"
+        },
+        "sameAs": [
+            "https://www.linkedin.com/in/sanket-brahmbhatt",
+            "https://github.com/sanket-brahmbhatt"
+        ]
+    }
+    </script>
 </head>
 <body>
 
-    <!-- Custom Cursor -->
+    <!-- ==================== CUSTOM CURSOR ==================== -->
     <div class="cursor" id="cursor"></div>
     <div class="cursor-follower" id="cursorFollower"></div>
     <div class="cursor-text" id="cursorText"></div>
 
-    <!-- Loader -->
-    <div class="loader" id="loader">
+    <!-- ==================== LOADER ==================== -->
+    <div class="loader" id="loader" role="status" aria-label="Loading portfolio">
         <div class="loader-inner">
             <div class="loader-cube">
                 <div class="cube-face front"></div>
@@ -59,217 +87,238 @@
                 <div class="cube-face top"></div>
                 <div class="cube-face bottom"></div>
             </div>
-            <p class="loader-text">LOADING PORTFOLIO</p>
-            <div class="loader-bar">
+            <p class="loader-text" aria-live="polite">LOADING PORTFOLIO</p>
+            <div class="loader-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                 <div class="loader-bar-fill" id="loaderBar"></div>
             </div>
-            <p class="loader-percent" id="loaderPercent">0%</p>
+            <p class="loader-percent" id="loaderPercent" aria-live="polite">0%</p>
         </div>
     </div>
 
-    <!-- Backgrounds -->
-    <canvas id="particleCanvas"></canvas>
-    <div class="noise-overlay"></div>
+    <!-- ==================== BACKGROUNDS ==================== -->
+    <canvas id="particleCanvas" aria-hidden="true"></canvas>
+    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+    <div class="noise-overlay" aria-hidden="true"></div>
 
-    <!-- Theme Switcher -->
-    <div class="theme-switcher" id="themeSwitcher">
-        <div class="theme-btn active" data-theme="cyber" title="Cyber (Ctrl+1)">
+    <!-- ==================== THEME SWITCHER ==================== -->
+    <div class="theme-switcher" id="themeSwitcher" role="radiogroup" aria-label="Theme selector">
+        <button class="theme-btn active" data-theme="cyber" title="Cyber Theme" role="radio" aria-checked="true" aria-label="Cyber Theme">
             <span style="background: #00f0ff;"></span>
-        </div>
-        <div class="theme-btn" data-theme="neon" title="Neon (Ctrl+2)">
+        </button>
+        <button class="theme-btn" data-theme="neon" title="Neon Theme" role="radio" aria-checked="false" aria-label="Neon Theme">
             <span style="background: #ff2d75;"></span>
-        </div>
-        <div class="theme-btn" data-theme="matrix" title="Matrix (Ctrl+3)">
+        </button>
+        <button class="theme-btn" data-theme="matrix" title="Matrix Theme" role="radio" aria-checked="false" aria-label="Matrix Theme">
             <span style="background: #00ff41;"></span>
-        </div>
-        <div class="theme-btn" data-theme="gold" title="Gold (Ctrl+4)">
+        </button>
+        <button class="theme-btn" data-theme="gold" title="Gold Theme" role="radio" aria-checked="false" aria-label="Gold Theme">
             <span style="background: #ffd700;"></span>
-        </div>
+        </button>
     </div>
 
-    <!-- NEW: Keyboard Shortcut Hint -->
-    <div class="keyboard-hint" id="keyboardHint">
+    <!-- ==================== KEYBOARD HINT ==================== -->
+    <div class="keyboard-hint" id="keyboardHint" aria-live="polite">
         <span>Press <kbd>?</kbd> for shortcuts</span>
     </div>
 
-    <!-- NEW: Keyboard Shortcuts Modal -->
-    <div class="shortcuts-modal" id="shortcutsModal">
-        <div class="shortcuts-overlay"></div>
-        <div class="shortcuts-content">
-            <button class="shortcuts-close" id="shortcutsClose"><i class="fas fa-times"></i></button>
-            <h3 class="shortcuts-title"><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
-            <div class="shortcuts-grid">
-                <div class="shortcut-item"><kbd>H</kbd><span>Go to Home</span></div>
-                <div class="shortcut-item"><kbd>A</kbd><span>Go to About</span></div>
-                <div class="shortcut-item"><kbd>E</kbd><span>Go to Experience</span></div>
-                <div class="shortcut-item"><kbd>S</kbd><span>Go to Skills</span></div>
-                <div class="shortcut-item"><kbd>P</kbd><span>Go to Projects</span></div>
-                <div class="shortcut-item"><kbd>C</kbd><span>Go to Contact</span></div>
-                <div class="shortcut-item"><kbd>D</kbd><span>Download CV</span></div>
-                <div class="shortcut-item"><kbd>T</kbd><span>Toggle to Top</span></div>
-                <div class="shortcut-item"><kbd>1-4</kbd><span>Change Theme</span></div>
-                <div class="shortcut-item"><kbd>?</kbd><span>This Menu</span></div>
-                <div class="shortcut-item"><kbd>Esc</kbd><span>Close Modals</span></div>
-                <div class="shortcut-item"><kbd>W</kbd><span>Open WhatsApp</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- NEW: Page Load Speed -->
-    <div class="load-speed" id="loadSpeed">
-        <i class="fas fa-bolt"></i>
+    <!-- ==================== PAGE LOAD SPEED ==================== -->
+    <div class="load-speed" id="loadSpeed" aria-label="Page load speed">
+        <i class="fas fa-bolt" aria-hidden="true"></i>
         <span id="loadSpeedValue">0.0s</span>
     </div>
 
-    <!-- NEW: Visitor Counter -->
-    <div class="visitor-counter" id="visitorCounter">
-        <i class="fas fa-eye"></i>
+    <!-- ==================== VISITOR COUNTER ==================== -->
+    <div class="visitor-counter" id="visitorCounter" aria-label="Visitor count">
+        <i class="fas fa-eye" aria-hidden="true"></i>
         <span id="visitorCount">0</span>
         <span class="visitor-label">visits</span>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-logo">
+    <!-- ==================== PERFORMANCE SCORE ==================== -->
+    <div class="perf-score" id="perfScore" aria-label="Performance score">
+        <div class="perf-ring">
+            <svg viewBox="0 0 60 60" aria-hidden="true">
+                <circle cx="30" cy="30" r="26" class="perf-ring-bg"></circle>
+                <circle cx="30" cy="30" r="26" class="perf-ring-fill" id="perfRingFill"></circle>
+            </svg>
+            <span class="perf-value" id="perfValue">--</span>
+        </div>
+        <span class="perf-label">PERF</span>
+    </div>
+
+    <!-- ==================== ONLINE/OFFLINE INDICATOR (SINGLE INSTANCE) ==================== -->
+    <div class="network-status" id="networkStatus" aria-live="polite">
+        <i class="fas fa-wifi" aria-hidden="true"></i>
+        <span id="networkText">Online</span>
+    </div>
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <a href="#home" class="nav-logo" aria-label="Sanket Brahmbhatt - Home">
             <span class="logo-text">S</span>
             <span class="logo-dot">.</span>
             <span class="logo-text">B</span>
-        </div>
-        <div class="nav-availability" id="availabilityBadge">
-            <span class="availability-dot"></span>
+        </a>
+
+        <div class="nav-availability" id="availabilityBadge" aria-label="Currently available for work">
+            <span class="availability-dot" aria-hidden="true"></span>
             <span class="availability-text">Available for Work</span>
         </div>
-        <div class="nav-links" id="navLinks">
-            <a href="#home" class="nav-link active" data-section="home">Home</a>
-            <a href="#about" class="nav-link" data-section="about">About</a>
-            <a href="#experience" class="nav-link" data-section="experience">Experience</a>
-            <a href="#skills" class="nav-link" data-section="skills">Skills</a>
-            <a href="#projects" class="nav-link" data-section="projects">Projects</a>
-            <a href="#education" class="nav-link" data-section="education">Education</a>
-            <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+
+        <div class="nav-links" id="navLinks" role="menubar">
+            <a href="#home"         class="nav-link active" data-section="home" role="menuitem">Home</a>
+            <a href="#about"        class="nav-link" data-section="about" role="menuitem">About</a>
+            <a href="#experience"   class="nav-link" data-section="experience" role="menuitem">Experience</a>
+            <a href="#skills"       class="nav-link" data-section="skills" role="menuitem">Skills</a>
+            <a href="#projects"     class="nav-link" data-section="projects" role="menuitem">Projects</a>
+            <a href="#education"    class="nav-link" data-section="education" role="menuitem">Education</a>
+            <a href="#learning"     class="nav-link" data-section="learning" role="menuitem">Learning</a>
+            <a href="#testimonials" class="nav-link" data-section="testimonials" role="menuitem">Reviews</a>
+            <a href="#contact"      class="nav-link" data-section="contact" role="menuitem">Contact</a>
         </div>
-        <a href="#" class="nav-cv-btn" id="navDownloadCV">
-            <i class="fas fa-download"></i>
+
+        <button class="nav-cv-btn" id="navDownloadCV" aria-label="Download CV">
+            <i class="fas fa-download" aria-hidden="true"></i>
             <span>CV</span>
-        </a>
-        <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+        </button>
+
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </button>
     </nav>
 
-    <!-- Progress Bar -->
-    <div class="page-progress">
+    <!-- ==================== PAGE PROGRESS BAR ==================== -->
+    <div class="page-progress" role="progressbar" aria-label="Page scroll progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
         <div class="page-progress-fill" id="pageProgress"></div>
     </div>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-links">
-            <a href="#home" class="mobile-link" data-index="01">Home</a>
-            <a href="#about" class="mobile-link" data-index="02">About</a>
-            <a href="#experience" class="mobile-link" data-index="03">Experience</a>
-            <a href="#skills" class="mobile-link" data-index="04">Skills</a>
-            <a href="#projects" class="mobile-link" data-index="05">Projects</a>
-            <a href="#education" class="mobile-link" data-index="06">Education</a>
-            <a href="#contact" class="mobile-link" data-index="07">Contact</a>
-            <a href="#" class="mobile-link mobile-cv-link" id="mobileDownloadCV">
-                <i class="fas fa-download"></i> Download CV
-            </a>
+    <!-- ==================== MOBILE MENU ==================== -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
+        <div class="mobile-menu-links" role="menu">
+            <a href="#home"         class="mobile-link" data-index="01" role="menuitem">Home</a>
+            <a href="#about"        class="mobile-link" data-index="02" role="menuitem">About</a>
+            <a href="#experience"   class="mobile-link" data-index="03" role="menuitem">Experience</a>
+            <a href="#skills"       class="mobile-link" data-index="04" role="menuitem">Skills</a>
+            <a href="#projects"     class="mobile-link" data-index="05" role="menuitem">Projects</a>
+            <a href="#education"    class="mobile-link" data-index="06" role="menuitem">Education</a>
+            <a href="#learning"     class="mobile-link" data-index="07" role="menuitem">Learning</a>
+            <a href="#testimonials" class="mobile-link" data-index="08" role="menuitem">Reviews</a>
+            <a href="#contact"      class="mobile-link" data-index="09" role="menuitem">Contact</a>
+            <button class="mobile-link mobile-cv-link" id="mobileDownloadCV" role="menuitem">
+                <i class="fas fa-download" aria-hidden="true"></i> Download CV
+            </button>
         </div>
     </div>
 
-    <!-- Side Socials -->
-    <div class="side-socials">
-        <a href="#" class="social-icon" data-tooltip="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#" class="social-icon" data-tooltip="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        <a href="#" class="social-icon" data-tooltip="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="mailto:sanketbarot3901@gmail.com" class="social-icon" data-tooltip="Email" aria-label="Email"><i class="fas fa-envelope"></i></a>
-        <div class="social-line"></div>
+    <!-- ==================== SIDE SOCIALS ==================== -->
+    <div class="side-socials" aria-label="Social media links">
+        <a href="https://www.linkedin.com/in/sanket-brahmbhatt" target="_blank" rel="noopener noreferrer" class="social-icon" data-tooltip="LinkedIn" aria-label="LinkedIn Profile">
+            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+        </a>
+        <a href="https://github.com/sanket-brahmbhatt" target="_blank" rel="noopener noreferrer" class="social-icon" data-tooltip="GitHub" aria-label="GitHub Profile">
+            <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.instagram.com/sanket_brahmbhatt" target="_blank" rel="noopener noreferrer" class="social-icon" data-tooltip="Instagram" aria-label="Instagram Profile">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:sanketbarot3901@gmail.com" class="social-icon" data-tooltip="Email" aria-label="Send Email">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+        <div class="social-line" aria-hidden="true"></div>
     </div>
 
-    <!-- Scroll Indicator -->
-    <div class="scroll-indicator">
+    <!-- ==================== SCROLL INDICATOR ==================== -->
+    <div class="scroll-indicator" aria-hidden="true">
         <span>SCROLL</span>
         <div class="scroll-line">
             <div class="scroll-dot"></div>
         </div>
     </div>
 
-    <!-- Section Counter -->
-    <div class="section-counter" id="sectionCounter">
+    <!-- ==================== SECTION COUNTER ==================== -->
+    <div class="section-counter" id="sectionCounter" aria-label="Current section indicator">
         <span class="counter-current">01</span>
         <span class="counter-divider">/</span>
-        <span class="counter-total">07</span>
+        <span class="counter-total">09</span>
     </div>
 
-    <!-- ==================== HERO SECTION ==================== -->
-    <section class="hero" id="home">
-        <div class="hero-bg-grid"></div>
+    <!-- ============================================================
+         01. HERO SECTION
+         ============================================================ -->
+    <section class="hero" id="home" aria-label="Hero section">
+        <div class="hero-bg-grid" aria-hidden="true"></div>
+
         <div class="hero-glitch-bg" aria-hidden="true">
             <span>SANKET</span>
             <span>SANKET</span>
             <span>SANKET</span>
         </div>
+
         <div class="hero-content">
             <div class="hero-greeting reveal-text">
-                <span class="greeting-line"></span>
-                <span class="greeting-text">HELLO, I AM</span>
-                <span class="greeting-line"></span>
+                <span class="greeting-line" aria-hidden="true"></span>
+                <span class="greeting-text" id="greetingText">HELLO, I AM</span>
+                <span class="greeting-line" aria-hidden="true"></span>
             </div>
+
             <h1 class="hero-name">
                 <span class="name-first reveal-up" data-text="SANKET">SANKET</span>
                 <span class="name-last reveal-up" data-delay="200" data-text="BRAHMBHATT">BRAHMBHATT</span>
             </h1>
+
             <div class="hero-title-wrapper reveal-up" data-delay="400">
                 <div class="hero-title-box">
-                    <div class="title-scanner"></div>
+                    <div class="title-scanner" aria-hidden="true"></div>
                     <span class="hero-title">QA MANUAL</span>
-                    <span class="hero-title-divider">+</span>
+                    <span class="hero-title-divider" aria-hidden="true">+</span>
                     <span class="hero-title">TESTER</span>
                 </div>
             </div>
-            <div class="typing-wrapper reveal-up" data-delay="500">
+
+            <div class="typing-wrapper reveal-up" data-delay="500" aria-live="polite">
                 <span class="typing-prefix">I ensure </span>
                 <span class="typing-text" id="typingText"></span>
-                <span class="typing-cursor">|</span>
+                <span class="typing-cursor" aria-hidden="true">|</span>
             </div>
+
             <div class="hero-buttons reveal-up" data-delay="700">
                 <a href="#contact" class="btn btn-primary magnetic-btn">
                     <span class="btn-text">CONTACT ME</span>
-                    <span class="btn-icon"><i class="fas fa-arrow-right"></i></span>
-                    <div class="btn-glow"></div>
+                    <span class="btn-icon" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+                    <div class="btn-glow" aria-hidden="true"></div>
                 </a>
                 <a href="#projects" class="btn btn-secondary magnetic-btn">
                     <span class="btn-text">VIEW PROJECTS</span>
-                    <span class="btn-icon"><i class="fas fa-th-large"></i></span>
+                    <span class="btn-icon" aria-hidden="true"><i class="fas fa-th-large"></i></span>
                 </a>
-                <a href="#" class="btn btn-cv magnetic-btn" id="heroDownloadCV">
+                <button class="btn btn-cv magnetic-btn" id="heroDownloadCV" aria-label="Download CV">
                     <span class="btn-text">DOWNLOAD CV</span>
-                    <span class="btn-icon"><i class="fas fa-download"></i></span>
-                    <div class="btn-glow"></div>
-                </a>
+                    <span class="btn-icon" aria-hidden="true"><i class="fas fa-download"></i></span>
+                    <div class="btn-glow" aria-hidden="true"></div>
+                </button>
             </div>
-            <div class="hero-stats reveal-up" data-delay="900">
+
+            <div class="hero-stats reveal-up" data-delay="900" aria-label="Career statistics">
                 <div class="stat-item">
-                    <span class="stat-number" data-count="2">0</span>
+                    <span class="stat-number" data-count="3">0</span>
                     <span class="stat-suffix">+</span>
                     <span class="stat-label">Years Exp.</span>
                 </div>
-                <div class="stat-divider"></div>
+                <div class="stat-divider" aria-hidden="true"></div>
                 <div class="stat-item">
                     <span class="stat-number" data-count="500">0</span>
                     <span class="stat-suffix">+</span>
                     <span class="stat-label">Bugs Found</span>
                 </div>
-                <div class="stat-divider"></div>
+                <div class="stat-divider" aria-hidden="true"></div>
                 <div class="stat-item">
                     <span class="stat-number" data-count="3">0</span>
                     <span class="stat-suffix">+</span>
                     <span class="stat-label">Domains</span>
                 </div>
-                <div class="stat-divider"></div>
+                <div class="stat-divider" aria-hidden="true"></div>
                 <div class="stat-item">
                     <span class="stat-number" data-count="10">0</span>
                     <span class="stat-suffix">+</span>
@@ -277,7 +326,8 @@
                 </div>
             </div>
         </div>
-        <div class="floating-elements">
+
+        <div class="floating-elements" aria-hidden="true">
             <div class="float-shape shape-1"></div>
             <div class="float-shape shape-2"></div>
             <div class="float-shape shape-3"></div>
@@ -285,45 +335,46 @@
             <div class="float-shape shape-5"></div>
             <div class="float-shape shape-6"></div>
         </div>
-        <div class="scroll-down-arrow">
-            <a href="#about" aria-label="Scroll to About section">
-                <div class="mouse-icon"><div class="mouse-wheel"></div></div>
-                <span>Scroll Down</span>
-            </a>
-        </div>
+
+    
     </section>
 
-    <!-- ==================== ABOUT SECTION ==================== -->
-    <section class="about" id="about">
+    <!-- ============================================================
+         02. ABOUT SECTION
+         ============================================================ -->
+    <section class="about" id="about" aria-label="About me">
         <div class="section-bg-text" aria-hidden="true">ABOUT</div>
         <div class="container">
             <div class="section-header">
-                <span class="section-number">01</span>
+                <span class="section-number" aria-hidden="true">01</span>
                 <h2 class="section-title reveal-up">About <span class="highlight">Me</span></h2>
-                <div class="section-line"></div>
+                <div class="section-line" aria-hidden="true"></div>
             </div>
+
             <div class="about-content">
                 <div class="about-image-wrapper reveal-left">
                     <div class="about-image-box tilt-card">
                         <div class="about-image-placeholder">
-                            <div class="placeholder-icon"><i class="fas fa-bug"></i></div>
+                            <div class="placeholder-icon"><i class="fas fa-bug" aria-hidden="true"></i></div>
                             <span>S.B</span>
                         </div>
-                        <div class="about-image-border"></div>
-                        <div class="about-image-dots"></div>
-                        <div class="image-glitch-overlay"></div>
+                        <div class="about-image-border" aria-hidden="true"></div>
+                        <div class="about-image-dots" aria-hidden="true"></div>
+                        <div class="image-glitch-overlay" aria-hidden="true"></div>
                     </div>
-                    <div class="about-badge">
+                    <div class="about-badge" aria-label="2+ years experience">
                         <span class="badge-number" data-count="2">0</span>
                         <span class="badge-plus">+</span>
                         <span class="badge-text">Years<br>Experience</span>
                     </div>
                 </div>
+
                 <div class="about-text-wrapper reveal-right">
-                    <div class="about-quote">
-                        <i class="fas fa-quote-left quote-icon"></i>
+                    <blockquote class="about-quote">
+                        <i class="fas fa-quote-left quote-icon" aria-hidden="true"></i>
                         <p class="quote-text">"Quality is not an act, it is a habit."</p>
-                    </div>
+                    </blockquote>
+
                     <p class="about-description">
                         Hello, I am <span class="highlight">Sanket Brahmbhatt</span> — a detail-oriented
                         <span class="highlight">QA Manual Tester</span> with over 2+ years of experience in
@@ -332,38 +383,63 @@
                         Strong understanding of SDLC, STLC, and Agile methodologies with hands-on experience
                         in web and mobile testing.
                     </p>
-                    <div class="about-facts">
-                        <div class="fact-item"><i class="fas fa-check-circle"></i><span>QA Tester at PhiBonacci Solutions Pvt. Ltd.</span></div>
-                        <div class="fact-item"><i class="fas fa-check-circle"></i><span>500+ Defects Identified & Reported</span></div>
-                        <div class="fact-item"><i class="fas fa-check-circle"></i><span>Expert in Functional, Regression & UAT Testing</span></div>
-                        <div class="fact-item"><i class="fas fa-check-circle"></i><span>Available for New Opportunities</span></div>
+
+                    <div class="about-facts" role="list">
+                        <div class="fact-item" role="listitem"><i class="fas fa-check-circle" aria-hidden="true"></i><span>QA Tester at PhiBonacci Solutions Pvt. Ltd.</span></div>
+                        <div class="fact-item" role="listitem"><i class="fas fa-check-circle" aria-hidden="true"></i><span>500+ Defects Identified & Reported</span></div>
+                        <div class="fact-item" role="listitem"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Expert in Functional, Regression & UAT Testing</span></div>
+                        <div class="fact-item" role="listitem"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Available for New Opportunities</span></div>
                     </div>
-                    <div class="marquee-wrapper">
+
+                    <div class="marquee-wrapper" aria-hidden="true">
                         <div class="marquee-track">
                             <span>MANUAL TESTING • FUNCTIONAL TESTING • REGRESSION • UAT • JIRA • AGILE • MOBILE TESTING • WEB TESTING • </span>
                             <span>MANUAL TESTING • FUNCTIONAL TESTING • REGRESSION • UAT • JIRA • AGILE • MOBILE TESTING • WEB TESTING • </span>
                         </div>
                     </div>
+
                     <div class="about-info-grid">
-                        <div class="info-item hover-lift"><span class="info-label">Name</span><span class="info-value">Sanket Brahmbhatt</span></div>
-                        <div class="info-item hover-lift"><span class="info-label">Email</span><span class="info-value">sanketbarot3901@gmail.com</span></div>
-                        <div class="info-item hover-lift"><span class="info-label">Location</span><span class="info-value">Ahmedabad, India</span></div>
-                        <div class="info-item hover-lift"><span class="info-label">Languages</span><span class="info-value">Gujarati, Hindi, English</span></div>
-                        <div class="info-item hover-lift"><span class="info-label">Domain Expertise</span><span class="info-value">E-Learning, Telecom, Forex</span></div>
-                        <div class="info-item hover-lift"><span class="info-label">Status</span><span class="info-value status-available"><span class="status-dot-inline"></span>Available for Work</span></div>
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Name</span>
+                            <span class="info-value">Sanket Brahmbhatt</span>
+                        </div>
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Email</span>
+                            <a href="mailto:sanketbarot3901@gmail.com" class="info-value">sanketbarot3901@gmail.com</a>
+                        </div>
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Location</span>
+                            <span class="info-value">Ahmedabad, India</span>
+                        </div>
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Languages</span>
+                            <span class="info-value">Gujarati, Hindi, English</span>
+                        </div>
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Domain Expertise</span>
+                            <span class="info-value">E-Learning, Telecom, Forex</span>
+                        </div>
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Status</span>
+                            <span class="info-value status-available">
+                                <span class="status-dot-inline" aria-hidden="true"></span>
+                                Available for Work
+                            </span>
+                        </div>
                     </div>
-                    <a href="#" class="btn btn-cv about-cv-btn magnetic-btn" id="aboutDownloadCV">
+
+                    <button class="btn btn-cv about-cv-btn magnetic-btn" id="aboutDownloadCV" aria-label="Download CV">
                         <span class="btn-text">DOWNLOAD CV</span>
-                        <span class="btn-icon"><i class="fas fa-file-pdf"></i></span>
-                        <div class="btn-glow"></div>
-                    </a>
+                        <span class="btn-icon" aria-hidden="true"><i class="fas fa-file-pdf"></i></span>
+                        <div class="btn-glow" aria-hidden="true"></div>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ==================== MARQUEE BANNER ==================== -->
-    <div class="full-marquee">
+    <div class="full-marquee" aria-hidden="true">
         <div class="full-marquee-track">
             <span>QA TESTER</span><span class="marquee-star">✦</span>
             <span>MANUAL TESTING</span><span class="marquee-star">✦</span>
@@ -378,28 +454,39 @@
         </div>
     </div>
 
-    <!-- ==================== EXPERIENCE SECTION ==================== -->
-    <section class="experience" id="experience">
+    <!-- ============================================================
+         03. EXPERIENCE SECTION
+         ============================================================ -->
+    <section class="experience" id="experience" aria-label="Work experience">
         <div class="section-bg-text" aria-hidden="true">WORK</div>
         <div class="container">
             <div class="section-header">
-                <span class="section-number">02</span>
+                <span class="section-number" aria-hidden="true">02</span>
                 <h2 class="section-title reveal-up">Work <span class="highlight">Experience</span></h2>
-                <div class="section-line"></div>
+                <div class="section-line" aria-hidden="true"></div>
             </div>
-            <div class="timeline">
-                <div class="timeline-line"><div class="timeline-line-fill" id="timelineFill"></div></div>
-                <div class="timeline-item reveal-up" data-delay="0">
-                    <div class="timeline-dot"><div class="dot-pulse"></div></div>
+
+            <div class="timeline" role="list" aria-label="Work experience timeline">
+                <div class="timeline-line" aria-hidden="true">
+                    <div class="timeline-line-fill" id="timelineFill"></div>
+                </div>
+
+                <!-- Internship -->
+                <div class="timeline-item reveal-up" data-delay="0" role="listitem">
+                    <div class="timeline-dot" aria-hidden="true"><div class="dot-pulse"></div></div>
                     <div class="timeline-card hover-lift">
                         <div class="card-header">
-                            <span class="card-date">Nov 2022 — May 2023</span>
+                            <span class="card-date"><time datetime="2022-11">Nov 2022</time> — <time datetime="2023-05">May 2023</time></span>
                             <div class="card-status past">Completed</div>
                         </div>
                         <h3 class="card-title">QA Manual Tester (Internship)</h3>
-                        <p class="card-company"><i class="fas fa-building"></i> i2iCore Technologies — Ahmedabad</p>
-                        <p class="card-description">Identified and reported 500+ defects, including critical issues. Assisted in test case execution and defect analysis. Participated in test planning and execution phases.</p>
-                        <div class="card-tags">
+                        <p class="card-company"><i class="fas fa-building" aria-hidden="true"></i> i2iCore Technologies — Ahmedabad</p>
+                        <p class="card-description">
+                            Identified and reported 500+ defects including critical issues. Assisted in test case
+                            execution and defect analysis. Participated in test planning and execution phases.
+                            Collaborated with team to improve application quality and user experience.
+                        </p>
+                        <div class="card-tags" aria-label="Skills used">
                             <span class="card-tag">Defect Reporting</span>
                             <span class="card-tag">Test Execution</span>
                             <span class="card-tag">Test Planning</span>
@@ -407,23 +494,31 @@
                         </div>
                     </div>
                 </div>
-                <div class="timeline-item reveal-up" data-delay="300">
-                    <div class="timeline-dot active"><div class="dot-pulse"></div></div>
+
+                <!-- Current -->
+                <div class="timeline-item reveal-up" data-delay="300" role="listitem">
+                    <div class="timeline-dot active" aria-hidden="true"><div class="dot-pulse"></div></div>
                     <div class="timeline-card active-card hover-lift">
-                        <div class="card-glow-border"></div>
+                        <div class="card-glow-border" aria-hidden="true"></div>
                         <div class="card-header">
-                            <span class="card-date">June 2023 — Present</span>
+                            <span class="card-date"><time datetime="2023-06">June 2023</time> — Present</span>
                             <div class="card-status current">Current</div>
                         </div>
                         <h3 class="card-title">Quality Assurance Tester</h3>
-                        <p class="card-company"><i class="fas fa-building"></i> PhiBonacci Solutions Pvt. Ltd. — Ahmedabad</p>
-                        <p class="card-description">Performed testing on web and mobile applications. Designed test plans and test cases. Performed Functional, Regression, Smoke, UAT, UI, Integration & System testing. Collaborated with developers using Jira.</p>
-                        <div class="card-tags">
+                        <p class="card-company"><i class="fas fa-building" aria-hidden="true"></i> PhiBonacci Solutions Pvt. Ltd. — Ahmedabad</p>
+                        <p class="card-description">
+                            Strong understanding of SDLC, STLC, Agile & Waterfall methodologies. Performed testing on
+                            web and mobile applications (iOS & Android). Designed and executed test plans and test cases.
+                            Performed Functional, Regression, Smoke, UAT, UI, Integration & System testing.
+                            Collaborated with developers using Jira to resolve defects.
+                        </p>
+                        <div class="card-tags" aria-label="Skills used">
                             <span class="card-tag">Jira</span>
                             <span class="card-tag">Agile</span>
                             <span class="card-tag">Mobile Testing</span>
                             <span class="card-tag">Web Testing</span>
                             <span class="card-tag">UAT</span>
+                            <span class="card-tag">Regression</span>
                         </div>
                     </div>
                 </div>
@@ -431,317 +526,619 @@
         </div>
     </section>
 
-    <!-- ==================== SKILLS SECTION ==================== -->
-    <section class="skills" id="skills">
+    <!-- ============================================================
+         04. SKILLS SECTION
+         ============================================================ -->
+    <section class="skills" id="skills" aria-label="Skills and expertise">
         <div class="section-bg-text" aria-hidden="true">SKILLS</div>
         <div class="container">
             <div class="section-header">
-                <span class="section-number">03</span>
+                <span class="section-number" aria-hidden="true">03</span>
                 <h2 class="section-title reveal-up">Skills & <span class="highlight">Expertise</span></h2>
-                <div class="section-line"></div>
+                <div class="section-line" aria-hidden="true"></div>
             </div>
-            <div class="skill-tabs reveal-up">
-                <button class="skill-tab active" data-category="all">All</button>
-                <button class="skill-tab" data-category="tools">Tools</button>
-                <button class="skill-tab" data-category="testing">Testing Types</button>
-                <button class="skill-tab" data-category="methodology">Methodology</button>
+
+            <div class="skill-tabs reveal-up" role="tablist" aria-label="Skill categories">
+                <button class="skill-tab active" data-category="all" role="tab" aria-selected="true" aria-controls="skills-grid">All</button>
+                <button class="skill-tab" data-category="tools" role="tab" aria-selected="false" aria-controls="skills-grid">Tools</button>
+                <button class="skill-tab" data-category="testing" role="tab" aria-selected="false" aria-controls="skills-grid">Testing Types</button>
+                <button class="skill-tab" data-category="methodology" role="tab" aria-selected="false" aria-controls="skills-grid">Methodology</button>
             </div>
-            <div class="skills-grid">
+
+            <div class="skills-grid" id="skills-grid" role="tabpanel">
                 <div class="skill-card reveal-up tilt-card" data-delay="0" data-category="tools">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fab fa-jira"></i><div class="skill-ring"></div></div>
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fab fa-jira" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">Jira</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Jira proficiency 90%"><div class="skill-bar-fill" data-width="90"></div></div>
                     <span class="skill-percent">90%</span>
                 </div>
+
                 <div class="skill-card reveal-up tilt-card" data-delay="100" data-category="tools">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fas fa-tasks"></i><div class="skill-ring"></div></div>
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fas fa-tasks" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">ClickUp</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="ClickUp proficiency 85%"><div class="skill-bar-fill" data-width="85"></div></div>
                     <span class="skill-percent">85%</span>
                 </div>
+
                 <div class="skill-card reveal-up tilt-card" data-delay="200" data-category="tools">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fas fa-code"></i><div class="skill-ring"></div></div>
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fas fa-code" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">Swagger</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="80"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Swagger proficiency 80%"><div class="skill-bar-fill" data-width="80"></div></div>
                     <span class="skill-percent">80%</span>
                 </div>
+
                 <div class="skill-card reveal-up tilt-card" data-delay="300" data-category="testing">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fas fa-check-double"></i><div class="skill-ring"></div></div>
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fas fa-check-double" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">Functional Testing</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="95"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="Functional Testing proficiency 95%"><div class="skill-bar-fill" data-width="95"></div></div>
                     <span class="skill-percent">95%</span>
                 </div>
+
                 <div class="skill-card reveal-up tilt-card" data-delay="400" data-category="testing">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fas fa-redo-alt"></i><div class="skill-ring"></div></div>
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fas fa-redo-alt" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">Regression Testing</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="92"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="Regression Testing proficiency 92%"><div class="skill-bar-fill" data-width="92"></div></div>
                     <span class="skill-percent">92%</span>
                 </div>
+
                 <div class="skill-card reveal-up tilt-card" data-delay="500" data-category="testing">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fas fa-user-check"></i><div class="skill-ring"></div></div>
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fas fa-user-check" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">UAT Testing</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="UAT Testing proficiency 90%"><div class="skill-bar-fill" data-width="90"></div></div>
                     <span class="skill-percent">90%</span>
                 </div>
+
                 <div class="skill-card reveal-up tilt-card" data-delay="600" data-category="testing">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fas fa-desktop"></i><div class="skill-ring"></div></div>
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fas fa-desktop" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">UI Testing</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="88"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="UI Testing proficiency 88%"><div class="skill-bar-fill" data-width="88"></div></div>
                     <span class="skill-percent">88%</span>
                 </div>
+
                 <div class="skill-card reveal-up tilt-card" data-delay="700" data-category="testing">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fas fa-box"></i><div class="skill-ring"></div></div>
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fas fa-box" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">Black Box Testing</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Black Box Testing proficiency 90%"><div class="skill-bar-fill" data-width="90"></div></div>
                     <span class="skill-percent">90%</span>
                 </div>
+
                 <div class="skill-card reveal-up tilt-card" data-delay="800" data-category="methodology">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fas fa-sync-alt"></i><div class="skill-ring"></div></div>
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fas fa-sync-alt" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">Agile / Scrum</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Agile Scrum proficiency 90%"><div class="skill-bar-fill" data-width="90"></div></div>
                     <span class="skill-percent">90%</span>
                 </div>
+
                 <div class="skill-card reveal-up tilt-card" data-delay="900" data-category="methodology">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fas fa-water"></i><div class="skill-ring"></div></div>
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fas fa-water" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">Waterfall</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Waterfall proficiency 85%"><div class="skill-bar-fill" data-width="85"></div></div>
                     <span class="skill-percent">85%</span>
                 </div>
-                <div class="skill-card reveal-up tilt-card" data-delay="1000" data-category="tools">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fas fa-mobile-alt"></i><div class="skill-ring"></div></div>
+
+                <div class="skill-card reveal-up tilt-card" data-delay="100" data-category="tools">
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fas fa-mobile-alt" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">Mobile Testing</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="88"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Mobile Testing proficiency 88%"><div class="skill-bar-fill" data-width="88"></div></div>
                     <span class="skill-percent">88%</span>
                 </div>
-                <div class="skill-card reveal-up tilt-card" data-delay="1100" data-category="tools">
-                    <div class="skill-icon-wrapper"><div class="skill-icon-bg"></div><i class="skill-icon fas fa-globe"></i><div class="skill-ring"></div></div>
+
+                <div class="skill-card reveal-up tilt-card" data-delay="200" data-category="tools">
+                    <div class="skill-icon-wrapper"><div class="skill-icon-bg" aria-hidden="true"></div><i class="skill-icon fas fa-globe" aria-hidden="true"></i><div class="skill-ring" aria-hidden="true"></div></div>
                     <h3 class="skill-name">Web App Testing</h3>
-                    <div class="skill-bar"><div class="skill-bar-fill" data-width="92"></div></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="Web App Testing proficiency 92%"><div class="skill-bar-fill" data-width="92"></div></div>
                     <span class="skill-percent">92%</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== PROJECTS SECTION ==================== -->
-    <section class="portfolio" id="projects">
+    <!-- ============================================================
+         05. PROJECTS SECTION
+         ============================================================ -->
+    <section class="portfolio" id="projects" aria-label="Projects">
         <div class="section-bg-text" aria-hidden="true">WORK</div>
         <div class="container">
             <div class="section-header">
-                <span class="section-number">04</span>
+                <span class="section-number" aria-hidden="true">04</span>
                 <h2 class="section-title reveal-up">My <span class="highlight">Projects</span></h2>
-                <div class="section-line"></div>
+                <div class="section-line" aria-hidden="true"></div>
             </div>
-            <div class="portfolio-filter reveal-up">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="elearning">E-Learning</button>
-                <button class="filter-btn" data-filter="telecom">Telecom</button>
-                <button class="filter-btn" data-filter="forex">Forex</button>
+
+            <div class="portfolio-filter reveal-up" role="tablist" aria-label="Project filters">
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+                <button class="filter-btn" data-filter="elearning" role="tab" aria-selected="false">E-Learning</button>
+                <button class="filter-btn" data-filter="telecom" role="tab" aria-selected="false">Telecom</button>
+                <button class="filter-btn" data-filter="forex" role="tab" aria-selected="false">Forex</button>
             </div>
-            <div class="portfolio-grid" id="portfolioGrid">
-                <div class="portfolio-item reveal-up" data-filter="elearning" data-delay="0">
+
+            <div class="portfolio-grid" id="portfolioGrid" role="list">
+
+                <!-- Project 1: E-Learning -->
+                <div class="portfolio-item reveal-up" data-filter="elearning" data-delay="0" role="listitem">
                     <div class="portfolio-card">
                         <div class="portfolio-image">
-                            <div class="portfolio-placeholder"><i class="fas fa-graduation-cap"></i><span>E-Learning</span></div>
+                            <div class="portfolio-placeholder">
+                                <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                                <span>E-Learning</span>
+                            </div>
                             <div class="portfolio-overlay">
                                 <div class="portfolio-overlay-content">
                                     <span class="portfolio-category">E-Learning Platform</span>
                                     <h3 class="portfolio-title">E-Learning Platform Testing</h3>
-                                    <p class="portfolio-desc">Comprehensive testing of login, registration, course enrollment, video playback, and progress tracking modules.</p>
+                                    <p class="portfolio-desc">Comprehensive testing of login, registration, course enrollment, video playback, and progress tracking.</p>
                                     <div class="portfolio-actions">
-                                        <button class="portfolio-view-btn" data-project="1"><i class="fas fa-expand"></i> View Details</button>
+                                        <button class="portfolio-view-btn" data-project="0" aria-label="View E-Learning project details">
+                                            <i class="fas fa-expand" aria-hidden="true"></i> View Details
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="portfolio-info"><h4>E-Learning Platform</h4><span class="portfolio-tag">Functional • Regression • UAT • UI</span></div>
+                        <div class="portfolio-info">
+                            <h4>E-Learning Platform</h4>
+                            <span class="portfolio-tag">Functional • Regression • UAT • UI</span>
+                        </div>
                     </div>
                 </div>
-                <div class="portfolio-item reveal-up" data-filter="telecom" data-delay="200">
+
+                <!-- Project 2: Telecom -->
+                <div class="portfolio-item reveal-up" data-filter="telecom" data-delay="200" role="listitem">
                     <div class="portfolio-card">
                         <div class="portfolio-image">
-                            <div class="portfolio-placeholder"><i class="fas fa-broadcast-tower"></i><span>Telecom</span></div>
+                            <div class="portfolio-placeholder">
+                                <i class="fas fa-broadcast-tower" aria-hidden="true"></i>
+                                <span>Telecom</span>
+                            </div>
                             <div class="portfolio-overlay">
                                 <div class="portfolio-overlay-content">
                                     <span class="portfolio-category">Telecom Application</span>
                                     <h3 class="portfolio-title">Telecom Service Application</h3>
                                     <p class="portfolio-desc">Tested recharge, plan selection, login, billing system. Validated data accuracy and user flows.</p>
                                     <div class="portfolio-actions">
-                                        <button class="portfolio-view-btn" data-project="2"><i class="fas fa-expand"></i> View Details</button>
+                                        <button class="portfolio-view-btn" data-project="1" aria-label="View Telecom project details">
+                                            <i class="fas fa-expand" aria-hidden="true"></i> View Details
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="portfolio-info"><h4>Telecom Service Application</h4><span class="portfolio-tag">Regression • Data Validation • User Flow</span></div>
+                        <div class="portfolio-info">
+                            <h4>Telecom Service Application</h4>
+                            <span class="portfolio-tag">Regression • Data Validation • User Flow</span>
+                        </div>
                     </div>
                 </div>
-                <div class="portfolio-item reveal-up" data-filter="forex" data-delay="400">
+
+                <!-- Project 3: Forex (Featured) -->
+                <div class="portfolio-item reveal-up" data-filter="forex" data-delay="400" role="listitem">
                     <div class="portfolio-card featured-card">
-                        <div class="featured-badge"><i class="fas fa-star"></i> Featured</div>
+                        <div class="featured-badge"><i class="fas fa-star" aria-hidden="true"></i> Featured</div>
                         <div class="portfolio-image">
-                            <div class="portfolio-placeholder"><i class="fas fa-chart-line"></i><span>Forex Trading</span></div>
+                            <div class="portfolio-placeholder">
+                                <i class="fas fa-chart-line" aria-hidden="true"></i>
+                                <span>Forex Trading</span>
+                            </div>
                             <div class="portfolio-overlay">
                                 <div class="portfolio-overlay-content">
                                     <span class="portfolio-category">Forex Trading Application</span>
                                     <h3 class="portfolio-title">Forex Trading Platform</h3>
-                                    <p class="portfolio-desc">Tested trading flow, real-time chart analysis, UPI & crypto payment gateway. Identified critical bugs in payment & transaction flow.</p>
+                                    <p class="portfolio-desc">Tested trading flow, real-time charts, UPI & crypto payments. Found critical bugs in payment & transaction flow.</p>
                                     <div class="portfolio-actions">
-                                        <button class="portfolio-view-btn" data-project="3"><i class="fas fa-expand"></i> View Details</button>
+                                        <button class="portfolio-view-btn" data-project="2" aria-label="View Forex Trading project details">
+                                            <i class="fas fa-expand" aria-hidden="true"></i> View Details
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="portfolio-info"><h4>Forex Trading Platform ⭐</h4><span class="portfolio-tag">Payment Gateway • UAT • Critical Bugs</span></div>
+                        <div class="portfolio-info">
+                            <h4>Forex Trading Platform <span aria-label="Featured">⭐</span></h4>
+                            <span class="portfolio-tag">Payment Gateway • UAT • Critical Bugs</span>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- ==================== EDUCATION SECTION ==================== -->
-    <section class="education" id="education">
+    <!-- ============================================================
+         06. EDUCATION SECTION
+         ============================================================ -->
+    <section class="education" id="education" aria-label="Education and certifications">
         <div class="section-bg-text" aria-hidden="true">LEARN</div>
         <div class="container">
             <div class="section-header">
-                <span class="section-number">05</span>
+                <span class="section-number" aria-hidden="true">05</span>
                 <h2 class="section-title reveal-up">Education & <span class="highlight">Learning</span></h2>
-                <div class="section-line"></div>
+                <div class="section-line" aria-hidden="true"></div>
             </div>
+
             <div class="education-grid">
                 <div class="education-column reveal-left">
-                    <h3 class="education-column-title"><i class="fas fa-graduation-cap"></i> Education</h3>
+                    <h3 class="education-column-title"><i class="fas fa-graduation-cap" aria-hidden="true"></i> Education</h3>
+
                     <div class="education-card hover-lift">
-                        <div class="education-year">2019 — 2022</div>
+                        <div class="education-year"><time datetime="2019">2019</time> — <time datetime="2022">2022</time></div>
                         <h4 class="education-degree">BSc in Information Technology</h4>
-                        <p class="education-school"><i class="fas fa-university"></i> Indus University — Ahmedabad</p>
-                        <p class="education-desc">Specialized in IT with focus on software development and testing.</p>
+                        <p class="education-school"><i class="fas fa-university" aria-hidden="true"></i> Indus University — Ahmedabad</p>
+                        <p class="education-desc">Specialized in IT with focus on software development and testing fundamentals.</p>
                     </div>
+
                     <div class="education-card hover-lift">
-                        <div class="education-year">2018 — 2019</div>
+                        <div class="education-year"><time datetime="2018">2018</time> — <time datetime="2019">2019</time></div>
                         <h4 class="education-degree">HSC (Higher Secondary)</h4>
-                        <p class="education-school"><i class="fas fa-school"></i> RR Dwivedi School — Ahmedabad</p>
-                        <p class="education-desc">Completed higher secondary education.</p>
+                        <p class="education-school"><i class="fas fa-school" aria-hidden="true"></i> RR Dwivedi School — Ahmedabad</p>
+                        <p class="education-desc">Completed higher secondary education with strong academic foundation.</p>
                     </div>
                 </div>
+
                 <div class="education-column reveal-right">
-                    <h3 class="education-column-title"><i class="fas fa-certificate"></i> Core Competencies</h3>
+                    <h3 class="education-column-title"><i class="fas fa-certificate" aria-hidden="true"></i> Core Competencies</h3>
+
                     <div class="education-card cert-card hover-lift">
-                        <div class="cert-badge"><i class="fas fa-award"></i></div>
+                        <div class="cert-badge" aria-hidden="true"><i class="fas fa-award"></i></div>
                         <h4 class="education-degree">SDLC & STLC Expertise</h4>
-                        <p class="education-school"><i class="fas fa-cog"></i> Software Life Cycle</p>
-                        <div class="cert-tags"><span class="cert-tag">SDLC</span><span class="cert-tag">STLC</span><span class="cert-tag">Test Planning</span></div>
+                        <p class="education-school"><i class="fas fa-cog" aria-hidden="true"></i> Software Life Cycle</p>
+                        <div class="cert-tags">
+                            <span class="cert-tag">SDLC</span>
+                            <span class="cert-tag">STLC</span>
+                            <span class="cert-tag">Test Planning</span>
+                        </div>
                     </div>
+
                     <div class="education-card cert-card hover-lift">
-                        <div class="cert-badge"><i class="fas fa-award"></i></div>
+                        <div class="cert-badge" aria-hidden="true"><i class="fas fa-award"></i></div>
                         <h4 class="education-degree">Agile & Scrum Methodology</h4>
-                        <p class="education-school"><i class="fas fa-sync-alt"></i> Agile Testing</p>
-                        <div class="cert-tags"><span class="cert-tag">Agile</span><span class="cert-tag">Scrum</span><span class="cert-tag">Sprint</span></div>
+                        <p class="education-school"><i class="fas fa-sync-alt" aria-hidden="true"></i> Agile Testing Framework</p>
+                        <div class="cert-tags">
+                            <span class="cert-tag">Agile</span>
+                            <span class="cert-tag">Scrum</span>
+                            <span class="cert-tag">Sprint</span>
+                        </div>
                     </div>
+
                     <div class="education-card cert-card hover-lift">
-                        <div class="cert-badge"><i class="fas fa-award"></i></div>
-                        <h4 class="education-degree">Defect Management</h4>
-                        <p class="education-school"><i class="fas fa-bug"></i> Bug Tracking</p>
-                        <div class="cert-tags"><span class="cert-tag">Jira</span><span class="cert-tag">ClickUp</span><span class="cert-tag">Bug Reporting</span></div>
+                        <div class="cert-badge" aria-hidden="true"><i class="fas fa-award"></i></div>
+                        <h4 class="education-degree">Defect Management & Reporting</h4>
+                        <p class="education-school"><i class="fas fa-bug" aria-hidden="true"></i> Bug Tracking & Resolution</p>
+                        <div class="cert-tags">
+                            <span class="cert-tag">Jira</span>
+                            <span class="cert-tag">ClickUp</span>
+                            <span class="cert-tag">Bug Reporting</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== PHILOSOPHY SECTION ==================== -->
-    <section class="philosophy" id="philosophy">
+    <!-- ==================== PHILOSOPHY SLIDER ==================== -->
+    <section class="philosophy" id="philosophy" aria-label="Testing philosophy quotes">
         <div class="container">
-            <div class="philosophy-slider">
-                <div class="philosophy-slide active">
-                    <div class="philosophy-icon"><i class="fas fa-bug"></i></div>
-                    <h3>"Quality is not an act, it is a habit."</h3>
-                    <p>— Aristotle</p>
+            <div class="philosophy-slider" role="region" aria-roledescription="carousel" aria-label="Philosophy quotes">
+                <div class="philosophy-slide active" role="group" aria-roledescription="slide" aria-label="Quote 1 of 3">
+                    <div class="philosophy-icon" aria-hidden="true"><i class="fas fa-bug"></i></div>
+                    <blockquote>
+                        <h3>"Quality is not an act, it is a habit."</h3>
+                        <cite>— Aristotle</cite>
+                    </blockquote>
                 </div>
-                <div class="philosophy-slide">
-                    <div class="philosophy-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>"Testing leads to failure, and failure leads to understanding."</h3>
-                    <p>— Burt Rutan</p>
+                <div class="philosophy-slide" role="group" aria-roledescription="slide" aria-label="Quote 2 of 3">
+                    <div class="philosophy-icon" aria-hidden="true"><i class="fas fa-shield-alt"></i></div>
+                    <blockquote>
+                        <h3>"Testing leads to failure, and failure leads to understanding."</h3>
+                        <cite>— Burt Rutan</cite>
+                    </blockquote>
                 </div>
-                <div class="philosophy-slide">
-                    <div class="philosophy-icon"><i class="fas fa-search"></i></div>
-                    <h3>"The more you test, the more bugs you find. The fewer bugs, the better the product."</h3>
-                    <p>— My Philosophy</p>
+                <div class="philosophy-slide" role="group" aria-roledescription="slide" aria-label="Quote 3 of 3">
+                    <div class="philosophy-icon" aria-hidden="true"><i class="fas fa-search"></i></div>
+                    <blockquote>
+                        <h3>"The more you test, the more bugs you find. The fewer bugs, the better the product."</h3>
+                        <cite>— My Philosophy</cite>
+                    </blockquote>
                 </div>
             </div>
-            <div class="philosophy-dots">
-                <span class="dot active" data-slide="0"></span>
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
+            <div class="philosophy-dots" role="tablist" aria-label="Quote navigation">
+                <button class="dot active" data-slide="0" role="tab" aria-selected="true" aria-label="Show quote 1"></button>
+                <button class="dot" data-slide="1" role="tab" aria-selected="false" aria-label="Show quote 2"></button>
+                <button class="dot" data-slide="2" role="tab" aria-selected="false" aria-label="Show quote 3"></button>
             </div>
         </div>
     </section>
 
-    <!-- ==================== CONTACT SECTION ==================== -->
-    <section class="contact" id="contact">
+    <!-- ============================================================
+         07. CURRENTLY LEARNING SECTION
+         ============================================================ -->
+    <section class="learning" id="learning" aria-label="Currently learning">
+        <div class="section-bg-text" aria-hidden="true">GROWTH</div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number" aria-hidden="true">06</span>
+                <h2 class="section-title reveal-up">Currently <span class="highlight">Learning</span></h2>
+                <div class="section-line" aria-hidden="true"></div>
+            </div>
+
+            <div class="learning-grid">
+
+                <div class="learning-card reveal-up hover-lift" data-delay="0">
+                    <div class="learning-progress-ring" aria-hidden="true">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" class="learning-ring-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="learning-ring-fill" data-progress="60"></circle>
+                        </svg>
+                        <span class="learning-percent">60%</span>
+                    </div>
+                    <div class="learning-info">
+                        <h4 class="learning-name">API Testing (Postman)</h4>
+                        <p class="learning-desc">Learning REST API testing, request/response validation, and API automation basics.</p>
+                        <div class="learning-status">
+                            <span class="learning-badge in-progress"><i class="fas fa-spinner fa-spin" aria-hidden="true"></i> In Progress</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="learning-card reveal-up hover-lift" data-delay="100">
+                    <div class="learning-progress-ring" aria-hidden="true">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" class="learning-ring-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="learning-ring-fill" data-progress="40"></circle>
+                        </svg>
+                        <span class="learning-percent">40%</span>
+                    </div>
+                    <div class="learning-info">
+                        <h4 class="learning-name">Selenium Automation</h4>
+                        <p class="learning-desc">Getting started with Selenium WebDriver for automated browser testing.</p>
+                        <div class="learning-status">
+                            <span class="learning-badge in-progress"><i class="fas fa-spinner fa-spin" aria-hidden="true"></i> In Progress</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="learning-card reveal-up hover-lift" data-delay="200">
+                    <div class="learning-progress-ring" aria-hidden="true">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" class="learning-ring-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="learning-ring-fill" data-progress="30"></circle>
+                        </svg>
+                        <span class="learning-percent">30%</span>
+                    </div>
+                    <div class="learning-info">
+                        <h4 class="learning-name">SQL for Testers</h4>
+                        <p class="learning-desc">Database testing, writing SQL queries for data validation and backend testing.</p>
+                        <div class="learning-status">
+                            <span class="learning-badge just-started"><i class="fas fa-seedling" aria-hidden="true"></i> Just Started</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="learning-card reveal-up hover-lift" data-delay="300">
+                    <div class="learning-progress-ring" aria-hidden="true">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" class="learning-ring-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="learning-ring-fill" data-progress="25"></circle>
+                        </svg>
+                        <span class="learning-percent">25%</span>
+                    </div>
+                    <div class="learning-info">
+                        <h4 class="learning-name">Performance Testing</h4>
+                        <p class="learning-desc">Exploring JMeter basics for load testing and performance benchmarking.</p>
+                        <div class="learning-status">
+                            <span class="learning-badge just-started"><i class="fas fa-seedling" aria-hidden="true"></i> Just Started</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Fun Facts -->
+            <div class="fun-facts reveal-up" data-delay="400">
+                <h3 class="fun-facts-title"><i class="fas fa-chart-pie" aria-hidden="true"></i> Fun QA Facts</h3>
+                <div class="fun-facts-grid" role="list">
+                    <div class="fun-fact-item" role="listitem">
+                        <span class="fun-fact-number" data-count="1200">0</span>
+                        <span class="fun-fact-suffix">+</span>
+                        <span class="fun-fact-label">Test Cases Written</span>
+                    </div>
+                    <div class="fun-fact-item" role="listitem">
+                        <span class="fun-fact-number" data-count="500">0</span>
+                        <span class="fun-fact-suffix">+</span>
+                        <span class="fun-fact-label">Bugs Reported</span>
+                    </div>
+                    <div class="fun-fact-item" role="listitem">
+                        <span class="fun-fact-number" data-count="50">0</span>
+                        <span class="fun-fact-suffix">+</span>
+                        <span class="fun-fact-label">Critical Bugs Found</span>
+                    </div>
+                    <div class="fun-fact-item" role="listitem">
+                        <span class="fun-fact-number" data-count="3000">0</span>
+                        <span class="fun-fact-suffix">+</span>
+                        <span class="fun-fact-label">Cups of Coffee <span aria-label="coffee">☕</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         08. TESTIMONIALS SECTION
+         ============================================================ -->
+    <section class="testimonials" id="testimonials" aria-label="Testimonials and reviews">
+        <div class="section-bg-text" aria-hidden="true">REVIEWS</div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number" aria-hidden="true">07</span>
+                <h2 class="section-title reveal-up">What People <span class="highlight">Say</span></h2>
+                <div class="section-line" aria-hidden="true"></div>
+            </div>
+
+            <div class="testimonials-slider reveal-up" role="region" aria-roledescription="carousel" aria-label="Testimonials">
+                <div class="testimonial-track" id="testimonialTrack">
+
+                    <div class="testimonial-card" role="group" aria-roledescription="slide" aria-label="Testimonial 1 of 3">
+                        <div class="testimonial-stars" aria-label="5 out of 5 stars">
+                            <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
+                        </div>
+                        <blockquote class="testimonial-text">"Sanket has an exceptional eye for detail. He identified critical bugs in our payment flow that saved us from major production issues. His systematic approach to testing is commendable."</blockquote>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" aria-hidden="true"><i class="fas fa-user"></i></div>
+                            <div class="testimonial-info">
+                                <h4>Team Lead</h4>
+                                <p>PhiBonacci Solutions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card" role="group" aria-roledescription="slide" aria-label="Testimonial 2 of 3">
+                        <div class="testimonial-stars" aria-label="5 out of 5 stars">
+                            <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
+                        </div>
+                        <blockquote class="testimonial-text">"Working with Sanket was a great experience. His thorough testing of our e-learning platform ensured a smooth launch. He consistently delivered quality reports on time."</blockquote>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" aria-hidden="true"><i class="fas fa-user"></i></div>
+                            <div class="testimonial-info">
+                                <h4>Project Manager</h4>
+                                <p>E-Learning Project</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card" role="group" aria-roledescription="slide" aria-label="Testimonial 3 of 3">
+                        <div class="testimonial-stars" aria-label="4.5 out of 5 stars">
+                            <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                        </div>
+                        <blockquote class="testimonial-text">"Sanket's expertise in regression and UAT testing significantly improved our application quality. He's proactive, reliable, and great at communicating issues clearly to the dev team."</blockquote>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" aria-hidden="true"><i class="fas fa-user"></i></div>
+                            <div class="testimonial-info">
+                                <h4>Senior Developer</h4>
+                                <p>Forex Trading Project</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="testimonial-nav" aria-label="Testimonial navigation">
+                    <button class="testimonial-prev" aria-label="Previous testimonial"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                    <div class="testimonial-dots" id="testimonialDots" role="tablist" aria-label="Testimonial indicators"></div>
+                    <button class="testimonial-next" aria-label="Next testimonial"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         09. CONTACT SECTION
+         ============================================================ -->
+    <section class="contact" id="contact" aria-label="Contact information and form">
         <div class="section-bg-text" aria-hidden="true">CONTACT</div>
         <div class="container">
             <div class="section-header">
-                <span class="section-number">06</span>
+                <span class="section-number" aria-hidden="true">08</span>
                 <h2 class="section-title reveal-up">Get In <span class="highlight">Touch</span></h2>
-                <div class="section-line"></div>
+                <div class="section-line" aria-hidden="true"></div>
             </div>
+
             <div class="contact-content">
                 <div class="contact-info reveal-left">
                     <h3 class="contact-subtitle">Let's work together</h3>
-                    <p class="contact-text">Looking for a dedicated QA Tester? I'm available for full-time positions, contract work, and freelance testing projects.</p>
-                    <div class="response-promise"><i class="fas fa-bolt"></i><span>Usually responds within <strong>24 hours</strong></span></div>
+                    <p class="contact-text">
+                        Looking for a dedicated QA Tester? I'm available for full-time positions,
+                        contract work, and freelance testing projects. Let's ensure your application
+                        is bug-free and production-ready.
+                    </p>
+
+                    <div class="response-promise">
+                        <i class="fas fa-bolt" aria-hidden="true"></i>
+                        <span>Usually responds within <strong>24 hours</strong></span>
+                    </div>
+
                     <div class="contact-cards">
                         <div class="contact-card hover-lift">
-                            <div class="contact-card-icon"><i class="fas fa-phone-alt"></i></div>
-                            <div class="contact-card-info"><span class="contact-card-label">Mobile</span><a href="tel:+917487980840" class="contact-card-value">+91 74879 80840</a></div>
+                            <div class="contact-card-icon" aria-hidden="true"><i class="fas fa-phone-alt"></i></div>
+                            <div class="contact-card-info">
+                                <span class="contact-card-label">Mobile</span>
+                                <a href="tel:+917487980840" class="contact-card-value">+91 74879 80840</a>
+                            </div>
                         </div>
+
                         <div class="contact-card hover-lift">
-                            <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
-                            <div class="contact-card-info"><span class="contact-card-label">Email</span><a href="mailto:sanketbarot3901@gmail.com" class="contact-card-value">sanketbarot3901@gmail.com</a></div>
+                            <div class="contact-card-icon" aria-hidden="true"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-card-info">
+                                <span class="contact-card-label">Email</span>
+                                <a href="mailto:sanketbarot3901@gmail.com" class="contact-card-value">sanketbarot3901@gmail.com</a>
+                            </div>
                         </div>
+
                         <div class="contact-card hover-lift">
-                            <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
-                            <div class="contact-card-info"><span class="contact-card-label">Location</span><span class="contact-card-value">Ahmedabad, Gujarat, India</span></div>
+                            <div class="contact-card-icon" aria-hidden="true"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-card-info">
+                                <span class="contact-card-label">Location</span>
+                                <span class="contact-card-value">Ahmedabad, Gujarat, India</span>
+                            </div>
                         </div>
+
                         <div class="contact-card hover-lift">
-                            <div class="contact-card-icon"><i class="fab fa-linkedin-in"></i></div>
-                            <div class="contact-card-info"><span class="contact-card-label">LinkedIn</span><a href="#" class="contact-card-value">Sanket Brahmbhatt</a></div>
+                            <div class="contact-card-icon" aria-hidden="true"><i class="fab fa-linkedin-in"></i></div>
+                            <div class="contact-card-info">
+                                <span class="contact-card-label">LinkedIn</span>
+                                <a href="https://www.linkedin.com/in/sanket-brahmbhatt" target="_blank" rel="noopener noreferrer" class="contact-card-value">Sanket Brahmbhatt</a>
+                            </div>
                         </div>
-                        <div class="contact-card cv-download-card hover-lift" id="contactDownloadCV">
-                            <div class="contact-card-icon cv-icon"><i class="fas fa-file-download"></i></div>
-                            <div class="contact-card-info"><span class="contact-card-label">Resume</span><span class="contact-card-value cv-card-text">Download my CV / Resume</span></div>
-                            <div class="cv-card-arrow"><i class="fas fa-arrow-right"></i></div>
-                        </div>
+
+                        <!-- CV Download Card -->
+                        <button class="contact-card cv-download-card hover-lift" id="contactDownloadCV" aria-label="Download CV">
+                            <div class="contact-card-icon cv-icon" aria-hidden="true"><i class="fas fa-file-download"></i></div>
+                            <div class="contact-card-info">
+                                <span class="contact-card-label">Resume</span>
+                                <span class="contact-card-value cv-card-text">Download my CV / Resume</span>
+                            </div>
+                            <div class="cv-card-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
+                        </button>
+
+                        <!-- Book a Call Card -->
+                        <button class="contact-card calendly-card hover-lift" id="calendlyTrigger" aria-label="Book a meeting">
+                            <div class="contact-card-icon calendly-icon" aria-hidden="true"><i class="fas fa-calendar-check"></i></div>
+                            <div class="contact-card-info">
+                                <span class="contact-card-label">Meeting</span>
+                                <span class="contact-card-value calendly-card-text">Book a Call with Me</span>
+                            </div>
+                            <div class="cv-card-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
+                        </button>
                     </div>
                 </div>
+
                 <div class="contact-form-wrapper reveal-right">
-                    <form class="contact-form" id="contactForm" novalidate>
+                    <form class="contact-form" id="contactForm" novalidate aria-label="Contact form">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" class="form-input" placeholder=" " required autocomplete="name">
+                            <input type="text" id="name" name="name" class="form-input" placeholder=" " required autocomplete="name" aria-required="true">
                             <label for="name" class="form-label">Your Name</label>
-                            <div class="form-line"></div>
+                            <div class="form-line" aria-hidden="true"></div>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" class="form-input" placeholder=" " required autocomplete="email">
+                            <input type="email" id="email" name="email" class="form-input" placeholder=" " required autocomplete="email" aria-required="true">
                             <label for="email" class="form-label">Your Email</label>
-                            <div class="form-line"></div>
+                            <div class="form-line" aria-hidden="true"></div>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="subject" name="subject" class="form-input" placeholder=" " required>
+                            <input type="text" id="subject" name="subject" class="form-input" placeholder=" " required aria-required="true">
                             <label for="subject" class="form-label">Subject</label>
-                            <div class="form-line"></div>
+                            <div class="form-line" aria-hidden="true"></div>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" class="form-input form-textarea" placeholder=" " required></textarea>
+                            <textarea id="message" name="message" class="form-input form-textarea" placeholder=" " required aria-required="true"></textarea>
                             <label for="message" class="form-label">Your Message</label>
-                            <div class="form-line"></div>
+                            <div class="form-line" aria-hidden="true"></div>
                         </div>
-                        <!-- NEW: Form Status -->
-                        <div class="form-status" id="formStatus"></div>
+
+                        <div class="form-status" id="formStatus" role="alert" aria-live="polite"></div>
+
                         <button type="submit" class="btn btn-primary btn-submit magnetic-btn" id="submitBtn">
                             <span class="btn-text">SEND MESSAGE</span>
-                            <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
-                            <div class="btn-glow"></div>
+                            <span class="btn-icon" aria-hidden="true"><i class="fas fa-paper-plane"></i></span>
+                            <div class="btn-glow" aria-hidden="true"></div>
                         </button>
                     </form>
                 </div>
@@ -749,115 +1146,327 @@
         </div>
     </section>
 
-    <!-- ==================== FOOTER ==================== -->
-    <footer class="footer">
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo"><span class="logo-text">S</span><span class="logo-dot">.</span><span class="logo-text">B</span></div>
+                <a href="#home" class="footer-logo" aria-label="Back to home">
+                    <span class="logo-text">S</span>
+                    <span class="logo-dot">.</span>
+                    <span class="logo-text">B</span>
+                </a>
                 <p class="footer-tagline">QA Manual Tester</p>
-                <div class="footer-nav">
-                    <a href="#home">Home</a><a href="#about">About</a><a href="#experience">Experience</a>
-                    <a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#education">Education</a>
+                    <a href="#learning">Learning</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+
+                <div class="footer-socials" aria-label="Social media">
+                    <a href="https://www.linkedin.com/in/sanket-brahmbhatt" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                    <a href="https://github.com/sanket-brahmbhatt" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/sanket_brahmbhatt" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="mailto:sanketbarot3901@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
                 </div>
-                <div class="footer-socials">
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="mailto:sanketbarot3901@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+
+                <button class="footer-cv-btn" id="footerDownloadCV" aria-label="Download CV">
+                    <i class="fas fa-download" aria-hidden="true"></i> Download CV
+                </button>
+
+                <!-- Last Updated -->
+                <div class="last-updated">
+                    <i class="fas fa-clock" aria-hidden="true"></i>
+                    <span>Last updated: <strong><time id="lastUpdated" datetime="2024-12">December 2024</time></strong></span>
                 </div>
-                <a href="#" class="footer-cv-btn" id="footerDownloadCV"><i class="fas fa-download"></i> Download CV</a>
-                <div class="footer-line"></div>
-                <p class="footer-copyright">&copy; 2024 Sanket Brahmbhatt. All Rights Reserved.</p>
-                <p class="footer-made">Made with <span class="heart">❤</span> & Quality</p>
+
+                <div class="footer-line" aria-hidden="true"></div>
+                <p class="footer-copyright">&copy; <span id="currentYear">2024</span> Sanket Brahmbhatt. All Rights Reserved.</p>
+                <p class="footer-made">Made with <span class="heart" aria-label="love">❤</span> & Quality</p>
             </div>
         </div>
     </footer>
 
+    <!-- ============================================================
+         FLOATING ACTION BUTTONS
+         ============================================================ -->
+
     <!-- Floating CV Button -->
-    <div class="floating-cv-btn" id="floatingCVBtn" aria-label="Download CV">
-        <div class="floating-cv-pulse"></div>
-        <i class="fas fa-file-download"></i>
+    <button class="floating-cv-btn" id="floatingCVBtn" aria-label="Download CV">
+        <div class="floating-cv-pulse" aria-hidden="true"></div>
+        <i class="fas fa-file-download" aria-hidden="true"></i>
         <span class="floating-cv-tooltip">Download CV</span>
-    </div>
+    </button>
 
     <!-- WhatsApp Button -->
-    <a href="https://wa.me/917487980840?text=Hi%20Sanket!%20I%20visited%20your%20portfolio." target="_blank" rel="noopener noreferrer" class="whatsapp-btn" id="whatsappBtn" aria-label="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
+    <a href="https://wa.me/917487980840?text=Hi%20Sanket!%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20an%20opportunity."
+       target="_blank"
+       rel="noopener noreferrer"
+       class="whatsapp-btn"
+       id="whatsappBtn"
+       aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
         <span class="whatsapp-tooltip">Chat on WhatsApp</span>
     </a>
 
-    <!-- CV Modal -->
-    <div class="cv-modal" id="cvModal" role="dialog" aria-modal="true" aria-labelledby="cvModalTitle">
-        <div class="cv-modal-overlay" id="cvModalOverlay"></div>
-        <div class="cv-modal-content">
-            <button class="cv-modal-close" id="cvModalClose" aria-label="Close"><i class="fas fa-times"></i></button>
-            <div class="cv-modal-icon"><div class="cv-modal-icon-bg"></div><i class="fas fa-file-pdf"></i></div>
-            <h3 class="cv-modal-title" id="cvModalTitle">Download My CV</h3>
-            <p class="cv-modal-text">Get a detailed look at my QA experience, skills, and projects.</p>
-            <div class="cv-modal-preview">
-                <div class="cv-preview-header">
-                    <div class="cv-preview-avatar">SB</div>
-                    <div><h4>Sanket Brahmbhatt</h4><p>QA Manual Tester</p></div>
-                </div>
-                <div class="cv-preview-items">
-                    <div class="cv-preview-item"><i class="fas fa-briefcase"></i><span>2+ Years</span></div>
-                    <div class="cv-preview-item"><i class="fas fa-bug"></i><span>500+ Bugs</span></div>
-                    <div class="cv-preview-item"><i class="fas fa-globe"></i><span>3 Domains</span></div>
-                    <div class="cv-preview-item"><i class="fas fa-project-diagram"></i><span>10+ Projects</span></div>
-                </div>
-            </div>
-            <div class="cv-modal-buttons">
-                    <a href="assets/Sanket-Brahmbhatt-CV.pdf" 
-                    download="Sanket-Brahmbhatt-CV.pdf" 
-                    class="btn btn-primary cv-download-main" 
-                    id="downloadPDF">
-                        <span class="btn-text">DOWNLOAD PDF</span>
-                        <span class="btn-icon"><i class="fas fa-file-pdf"></i></span>
-                        <div class="btn-glow"></div>
-                    </a>
-                </div>
-            <div class="cv-modal-generating" id="cvGenerating"><div class="generating-spinner"></div><p>Generating your CV...</p></div>
-            <div class="cv-modal-success" id="cvSuccess"><i class="fas fa-check-circle"></i><p>CV Downloaded Successfully!</p></div>
+    <!-- Click to Call (Mobile only) -->
+    <a href="tel:+917487980840" class="click-to-call" id="clickToCall" aria-label="Call Sanket Brahmbhatt">
+        <i class="fas fa-phone-alt" aria-hidden="true"></i>
+        <span class="call-tooltip">Call Me</span>
+    </a>
+
+    <!-- Share Widget -->
+    <div class="share-widget" id="shareWidget">
+        <button class="share-toggle" id="shareToggle" aria-label="Share Portfolio" aria-expanded="false" aria-controls="shareButtons">
+            <i class="fas fa-share-alt" aria-hidden="true"></i>
+        </button>
+        <div class="share-buttons" id="shareButtons" aria-label="Share options" role="menu">
+            <a href="#" class="share-btn share-linkedin" id="shareLinkedIn" aria-label="Share on LinkedIn" role="menuitem" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+            </a>
+            <a href="#" class="share-btn share-twitter" id="shareTwitter" aria-label="Share on Twitter" role="menuitem" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-twitter" aria-hidden="true"></i>
+            </a>
+            <a href="#" class="share-btn share-whatsapp" id="shareWhatsApp" aria-label="Share on WhatsApp" role="menuitem" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+            </a>
+            <a href="#" class="share-btn share-facebook" id="shareFacebook" aria-label="Share on Facebook" role="menuitem" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+            </a>
+            <button class="share-btn share-copy" id="shareCopy" aria-label="Copy portfolio link" role="menuitem">
+                <i class="fas fa-link" aria-hidden="true"></i>
+            </button>
+            <button class="share-btn share-qr" id="shareQR" aria-label="Show QR Code" role="menuitem">
+                <i class="fas fa-qrcode" aria-hidden="true"></i>
+            </button>
         </div>
     </div>
 
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
-        <div class="lightbox-overlay"></div>
-        <div class="lightbox-content">
-            <button class="lightbox-close" aria-label="Close"><i class="fas fa-times"></i></button>
-            <button class="lightbox-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-            <button class="lightbox-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
-            <div class="lightbox-image" id="lightboxImage"><div class="lightbox-placeholder"><i class="fas fa-bug"></i><span>Project Preview</span></div></div>
-            <div class="lightbox-info" id="lightboxInfo"><h3>Project Title</h3><p>Description</p><div class="lightbox-tags"></div></div>
-        </div>
-    </div>
-
-    <!-- Toast -->
-    <div class="toast" id="toast" role="alert">
-        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
-        <div class="toast-message" id="toastMessage">Action completed!</div>
-        <div class="toast-progress"></div>
-    </div>
+   
 
     <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
-        <i class="fas fa-chevron-up"></i>
-        <svg class="back-to-top-circle" viewBox="0 0 100 100">
+    <button class="back-to-top" id="backToTop" aria-label="Scroll back to top">
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+        <svg class="back-to-top-circle" viewBox="0 0 100 100" aria-hidden="true">
             <circle cx="50" cy="50" r="48" id="backToTopCircle"></circle>
         </svg>
     </button>
 
-    <!-- NEW: Easter Egg Overlay -->
-    <div class="easter-egg-overlay" id="easterEgg">
+    <!-- ============================================================
+         MODALS (Each ID appears only ONCE)
+         ============================================================ -->
+
+    <!-- CV Modal -->
+    <div class="cv-modal" id="cvModal" role="dialog" aria-modal="true" aria-labelledby="cvModalTitle" aria-hidden="true">
+        <div class="cv-modal-overlay" id="cvModalOverlay"></div>
+        <div class="cv-modal-content">
+            <button class="cv-modal-close" id="cvModalClose" aria-label="Close CV modal"><i class="fas fa-times" aria-hidden="true"></i></button>
+            <div class="cv-modal-icon" aria-hidden="true">
+                <div class="cv-modal-icon-bg"></div>
+                <i class="fas fa-file-pdf"></i>
+            </div>
+            <h3 class="cv-modal-title" id="cvModalTitle">Download My CV</h3>
+            <p class="cv-modal-text">Get a detailed look at my QA experience, skills, and projects.</p>
+            <div class="cv-modal-preview">
+                <div class="cv-preview-header">
+                    <div class="cv-preview-avatar" aria-hidden="true">SB</div>
+                    <div>
+                        <h4>Sanket Brahmbhatt</h4>
+                        <p>QA Manual Tester</p>
+                    </div>
+                </div>
+                <div class="cv-preview-items">
+                    <div class="cv-preview-item"><i class="fas fa-briefcase" aria-hidden="true"></i><span>2+ Years</span></div>
+                    <div class="cv-preview-item"><i class="fas fa-bug" aria-hidden="true"></i><span>500+ Bugs</span></div>
+                    <div class="cv-preview-item"><i class="fas fa-globe" aria-hidden="true"></i><span>3 Domains</span></div>
+                    <div class="cv-preview-item"><i class="fas fa-project-diagram" aria-hidden="true"></i><span>10+ Projects</span></div>
+                </div>
+            </div>
+            <div class="cv-modal-buttons">
+                <a href="assets/Sanket-Brahmbhatt-CV.pdf"
+                   download="Sanket-Brahmbhatt-CV.pdf"
+                   class="btn btn-primary cv-download-main"
+                   id="downloadPDF">
+                    <span class="btn-text">DOWNLOAD PDF</span>
+                    <span class="btn-icon" aria-hidden="true"><i class="fas fa-file-pdf"></i></span>
+                    <div class="btn-glow" aria-hidden="true"></div>
+                </a>
+            </div>
+            <div class="cv-modal-generating" id="cvGenerating" aria-hidden="true">
+                <div class="generating-spinner" aria-hidden="true"></div>
+                <p>Generating your CV...</p>
+            </div>
+            <div class="cv-modal-success" id="cvSuccess" aria-hidden="true">
+                <i class="fas fa-check-circle" aria-hidden="true"></i>
+                <p>CV Downloaded Successfully!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Detail Modal -->
+    <div class="project-detail-modal" id="projectDetailModal" role="dialog" aria-modal="true" aria-labelledby="projectDetailTitle" aria-hidden="true">
+        <div class="project-detail-overlay" id="projectDetailOverlay"></div>
+        <div class="project-detail-content" id="projectDetailContent">
+            <button class="project-detail-close" id="projectDetailClose" aria-label="Close project details"><i class="fas fa-times" aria-hidden="true"></i></button>
+            <div class="project-detail-header" id="projectDetailHeader"></div>
+            <div class="project-detail-body" id="projectDetailBody"></div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox" aria-hidden="true">
+        <div class="lightbox-overlay"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Close lightbox"><i class="fas fa-times" aria-hidden="true"></i></button>
+            <button class="lightbox-prev" aria-label="Previous image"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+            <button class="lightbox-next" aria-label="Next image"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+            <div class="lightbox-image" id="lightboxImage">
+                <div class="lightbox-placeholder"><i class="fas fa-bug" aria-hidden="true"></i><span>Project Preview</span></div>
+            </div>
+            <div class="lightbox-info" id="lightboxInfo">
+                <h3>Project Title</h3>
+                <p>Description</p>
+                <div class="lightbox-tags"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div class="qr-modal" id="qrModal" role="dialog" aria-modal="true" aria-labelledby="qrTitle" aria-hidden="true">
+        <div class="qr-modal-overlay" id="qrOverlay"></div>
+        <div class="qr-modal-content">
+            <button class="qr-close" id="qrClose" aria-label="Close QR modal"><i class="fas fa-times" aria-hidden="true"></i></button>
+            <h3 class="qr-title" id="qrTitle"><i class="fas fa-qrcode" aria-hidden="true"></i> Scan to Visit Portfolio</h3>
+            <div class="qr-code" id="qrCodeContainer">
+                <canvas id="qrCanvas" aria-label="QR code for portfolio URL"></canvas>
+            </div>
+            <p class="qr-url" id="qrUrl">sanketbrahmbhatt.com</p>
+            <p class="qr-hint">Scan with your phone camera</p>
+            <button class="qr-download-btn" id="qrDownload" aria-label="Download QR code image">
+                <i class="fas fa-download" aria-hidden="true"></i> Download QR Image
+            </button>
+        </div>
+    </div>
+
+    <!-- Calendly Modal -->
+    <div class="calendly-modal" id="calendlyModal" role="dialog" aria-modal="true" aria-labelledby="calendlyTitle" aria-hidden="true">
+        <div class="calendly-overlay" id="calendlyOverlay"></div>
+        <div class="calendly-content">
+            <button class="calendly-close" id="calendlyClose" aria-label="Close booking modal"><i class="fas fa-times" aria-hidden="true"></i></button>
+            <h3 class="calendly-title" id="calendlyTitle"><i class="fas fa-calendar-check" aria-hidden="true"></i> Book a Meeting</h3>
+            <p class="calendly-desc">Schedule a call to discuss opportunities</p>
+            <div class="calendly-embed">
+                <div class="calendly-placeholder">
+                    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                    <p>Add your Calendly link below</p>
+                    <a href="https://calendly.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        <span class="btn-text">OPEN CALENDLY</span>
+                        <span class="btn-icon" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bug Catching Game Modal -->
+    <div class="bug-game-modal" id="bugGameModal" role="dialog" aria-modal="true" aria-label="Bug Catcher Game" aria-hidden="true">
+        <div class="bug-game-overlay" id="bugGameOverlay"></div>
+        <div class="bug-game-content">
+            <button class="bug-game-close" id="bugGameClose" aria-label="Close game"><i class="fas fa-times" aria-hidden="true"></i></button>
+            <div class="bug-game-header">
+                <h3><i class="fas fa-bug" aria-hidden="true"></i> Bug Catcher</h3>
+                <div class="bug-game-stats" aria-live="polite">
+                    <span class="bug-score">Score: <strong id="bugScore">0</strong></span>
+                    <span class="bug-timer">Time: <strong id="bugTimer">30</strong>s</span>
+                    <span class="bug-high">Best: <strong id="bugHighScore">0</strong></span>
+                </div>
+            </div>
+            <div class="bug-game-area" id="bugGameArea">
+                <div class="bug-game-start" id="bugGameStart">
+                    <i class="fas fa-bug bug-game-icon" aria-hidden="true"></i>
+                    <h4>Catch the Bugs!</h4>
+                    <p>Click on bugs before they escape. You have 30 seconds!</p>
+                    <button class="bug-start-btn" id="bugStartBtn">START GAME</button>
+                </div>
+            </div>
+            <div class="bug-game-over" id="bugGameOver" aria-hidden="true">
+                <h4>Game Over!</h4>
+                <p>You caught <strong id="bugFinalScore">0</strong> bugs!</p>
+                <div class="bug-game-rating" id="bugRating"></div>
+                <button class="bug-start-btn" id="bugRestartBtn">PLAY AGAIN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Modal (SINGLE INSTANCE — duplicate removed) -->
+    <div class="shortcuts-modal" id="shortcutsModal" role="dialog" aria-modal="true" aria-labelledby="shortcutsTitle" aria-hidden="true">
+        <div class="shortcuts-overlay"></div>
+        <div class="shortcuts-content">
+            <button class="shortcuts-close" id="shortcutsClose" aria-label="Close shortcuts"><i class="fas fa-times" aria-hidden="true"></i></button>
+            <h3 class="shortcuts-title" id="shortcutsTitle"><i class="fas fa-keyboard" aria-hidden="true"></i> Keyboard Shortcuts</h3>
+            <div class="shortcuts-grid" role="list">
+                <div class="shortcut-item" role="listitem"><kbd>H</kbd><span>Go to Home</span></div>
+                <div class="shortcut-item" role="listitem"><kbd>A</kbd><span>Go to About</span></div>
+                <div class="shortcut-item" role="listitem"><kbd>E</kbd><span>Experience</span></div>
+                <div class="shortcut-item" role="listitem"><kbd>S</kbd><span>Go to Skills</span></div>
+                <div class="shortcut-item" role="listitem"><kbd>P</kbd><span>Go to Projects</span></div>
+                <div class="shortcut-item" role="listitem"><kbd>C</kbd><span>Go to Contact</span></div>
+                <div class="shortcut-item" role="listitem"><kbd>D</kbd><span>Download CV</span></div>
+                <div class="shortcut-item" role="listitem"><kbd>T</kbd><span>Back to Top</span></div>
+                <div class="shortcut-item" role="listitem"><kbd>1–4</kbd><span>Change Theme</span></div>
+                <div class="shortcut-item" role="listitem"><kbd>?</kbd><span>This Menu</span></div>
+                <div class="shortcut-item" role="listitem"><kbd>Esc</kbd><span>Close Modals</span></div>
+                <div class="shortcut-item" role="listitem"><kbd>W</kbd><span>WhatsApp</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent -->
+    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent" aria-hidden="true">
+        <div class="cookie-content">
+            <div class="cookie-icon" aria-hidden="true"><i class="fas fa-cookie-bite"></i></div>
+            <div class="cookie-text">
+                <p>This site uses cookies & analytics to improve your experience and track portfolio visits.</p>
+            </div>
+            <div class="cookie-actions">
+                <button class="cookie-accept" id="cookieAccept">Accept All</button>
+                <button class="cookie-decline" id="cookieDecline">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Easter Egg -->
+    <div class="easter-egg-overlay" id="easterEgg" role="dialog" aria-modal="true" aria-label="Easter egg" aria-hidden="true">
         <div class="easter-egg-content">
-            <div class="easter-egg-icon"><i class="fas fa-trophy"></i></div>
+            <div class="easter-egg-icon" aria-hidden="true"><i class="fas fa-trophy"></i></div>
             <h3>🎉 You Found the Easter Egg!</h3>
-            <p>You're a true explorer! Here's a secret: I'm always looking for bugs... even on my own portfolio 🐛</p>
+            <p>You're a true QA explorer! I'm always looking for bugs... even on my own portfolio 🐛</p>
             <button class="easter-egg-close" id="easterEggClose">Nice! Close this</button>
         </div>
     </div>
 
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-icon" aria-hidden="true"><i class="fas fa-check-circle"></i></div>
+        <div class="toast-message" id="toastMessage">Action completed!</div>
+        <div class="toast-progress" aria-hidden="true"></div>
+    </div>
+
+    <!-- ============================================================
+         SCRIPT
+         ============================================================ -->
     <script src="script.js"></script>
+
+    <!-- Dynamic copyright year -->
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>

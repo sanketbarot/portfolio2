@@ -93,6 +93,63 @@
     .easter-egg-content { padding: 25px; }
     .easter-egg-content h3 { font-size: 18px; }
     .easter-egg-icon { font-size: 40px; }
+    .share-widget {
+        bottom: 160px;
+        right: 15px;
+    }
+
+    .share-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .share-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 12px;
+    }
+
+    .cookie-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 20px;
+        gap: 12px;
+    }
+
+    .cookie-icon { display: none; }
+
+    .cookie-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .bug-game-trigger { display: none; }
+
+    .bug-game-area { height: 280px; }
+    .game-bug { font-size: 24px; }
+
+    .qr-modal-content { padding: 25px; }
+    .qr-code { width: 160px; height: 160px; padding: 12px; }
+
+    .calendly-content { padding: 25px; }
+    .learning-grid { grid-template-columns: 1fr; gap: 15px; }
+    .learning-card { padding: 20px; gap: 18px; }
+    .learning-progress-ring { width: 65px; height: 65px; }
+    .learning-percent { font-size: 12px; }
+    .fun-facts { padding: 25px; }
+    .fun-facts-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .fun-fact-number { font-size: 22px; }
+    .testimonial-card { padding: 25px 15px; }
+    .testimonial-text { font-size: 14px; }
+    .click-to-call { display: flex; }
+    .call-tooltip { display: none; }
+    .perf-score { display: none; }
+    .project-detail-header { padding: 20px; }
+    .project-detail-body { padding: 20px; }
+    .project-detail-title { font-size: 15px; }
+    .project-detail-stats { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .project-stat-num { font-size: 18px; }
 }
 
 @media (max-width: 600px) {
@@ -167,6 +224,33 @@
      .shortcuts-content { padding: 20px 15px; }
     .shortcut-item { padding: 6px; }
     .shortcut-item span { font-size: 11px; }
+    .share-widget {
+        bottom: 150px;
+        right: 10px;
+    }
+
+    .bug-game-content { width: 98%; }
+    .bug-game-area { height: 250px; }
+    .bug-game-header { padding: 15px; }
+    .bug-game-header h3 { font-size: 14px; }
+    .bug-game-stats { gap: 8px; font-size: 10px; }
+
+    .cookie-accept, .cookie-decline {
+        padding: 6px 14px;
+        font-size: 9px;
+    }
+     .learning-card { flex-direction: column; text-align: center; padding: 15px; }
+    .learning-progress-ring { width: 70px; height: 70px; }
+    .fun-facts-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+    .fun-fact-number { font-size: 20px; }
+    .fun-fact-label { font-size: 9px; }
+    .testimonial-text { font-size: 12px; }
+    .testimonial-prev, .testimonial-next { width: 32px; height: 32px; }
+    .project-detail-content { width: 98%; }
+    .project-detail-header { flex-direction: column; text-align: center; gap: 12px; }
+    .project-detail-icon { width: 50px; height: 50px; font-size: 20px; }
+    .project-detail-title { font-size: 14px; }
+    .click-to-call { bottom: 90px; left: 15px; width: 44px; height: 44px; font-size: 18px; }
 }
 
 @media (max-width: 360px) {
@@ -180,6 +264,10 @@
     .section-number { font-size: 11px; letter-spacing: 2px; }
     .about-image-box { max-width: 200px; }
     .mobile-link { font-size: 14px; letter-spacing: 2px; }
+    .learning-name { font-size: 13px; }
+    .learning-desc { font-size: 11px; }
+    .fun-facts { padding: 15px; }
+    .fun-fact-number { font-size: 18px; }
 }
 
 @media (max-width: 320px) {
@@ -223,3 +311,4 @@
     .about-content, .contact-content, .education-grid { grid-template-columns: 1fr; }
     .skills-grid { grid-template-columns: repeat(3, 1fr); }
 }
+
