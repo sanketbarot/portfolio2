@@ -83,6 +83,16 @@
     .lightbox-next { right: 10px; }
     .lightbox-close { top: -45px; }
     .lightbox-content { width: 95%; }
+     .keyboard-hint,
+    .load-speed,
+    .visitor-counter { display: none; }
+
+    .shortcuts-content { padding: 25px 20px; }
+    .shortcuts-grid { grid-template-columns: 1fr; }
+
+    .easter-egg-content { padding: 25px; }
+    .easter-egg-content h3 { font-size: 18px; }
+    .easter-egg-icon { font-size: 40px; }
 }
 
 @media (max-width: 600px) {
@@ -154,6 +164,9 @@
     .whatsapp-btn { bottom: 20px; left: 15px; width: 44px; height: 44px; font-size: 18px; }
     .education-degree { font-size: 13px; }
     .cert-tag { font-size: 9px; }
+     .shortcuts-content { padding: 20px 15px; }
+    .shortcut-item { padding: 6px; }
+    .shortcut-item span { font-size: 11px; }
 }
 
 @media (max-width: 360px) {

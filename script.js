@@ -863,3 +863,414 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 150);
 
 }); /* END DOMContentLoaded */
+
+    /* ==========================================
+       22. GOOGLE ANALYTICS EVENT TRACKING
+       ========================================== */
+    function trackEvent(category, action, label) {
+        if (typeof gtag === 'function') {
+            gtag('event', action, {
+                event_category: category,
+                event_label: label
+            });
+        }
+    }
+
+    /* Track section views */
+    document.querySelectorAll('section[id]').forEach(section => {
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    trackEvent('Section', 'view', entry.target.id);
+                    sectionObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        sectionObserver.observe(section);
+    });
+
+    /* Track button clicks */
+    document.querySelectorAll('.btn, .nav-link, .mobile-link, .social-icon, .footer-socials a').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const label = btn.textContent.trim() || btn.getAttribute('aria-label') || 'unknown';
+            trackEvent('Click', 'button_click', label);
+        });
+    });
+
+    /* ==========================================
+       23. REAL CV DOWNLOAD WITH TRACKING
+       ========================================== */
+    const pdfBtn = document.getElementById('downloadPDF');
+
+    if (pdfBtn) {
+        /* Remove any old listeners */
+        const newPdfBtn = pdfBtn.cloneNode(true);
+        pdfBtn.parentNode.replaceChild(newPdfBtn, pdfBtn);
+
+        newPdfBtn.addEventListener('click', (e) => {
+            const href = newPdfBtn.getAttribute('href');
+            const hasRealFile = href && href !== '#' && !href.startsWith('javascript');
+
+            if (hasRealFile) {
+                /* ✅ Real PDF file exists — let browser download */
+                trackEvent('CV', 'download', 'PDF');
+
+                /* Save download count */
+                const count = parseInt(localStorage.getItem('sb_cv_downloads') || '0') + 1;
+                localStorage.setItem('sb_cv_downloads', count);
+
+                /* Show success animation */
+                setTimeout(() => {
+                    if (cvSuccess) cvSuccess.classList.add('active');
+                    showToast('CV downloaded successfully!', 'fas fa-download');
+
+                    setTimeout(() => {
+                        if (cvSuccess) cvSuccess.classList.remove('active');
+                        closeCVModal();
+                    }, 2000);
+                }, 500);
+
+            } else {
+                /* ❌ No file yet — show simulation */
+                e.preventDefault();
+
+                if (cvGenerating) cvGenerating.classList.add('active');
+
+                setTimeout(() => {
+                    if (cvGenerating) cvGenerating.classList.remove('active');
+                    if (cvSuccess)    cvSuccess.classList.add('active');
+
+                    showToast('CV file not uploaded yet. Add your PDF to assets/ folder.', 'fas fa-exclamation-circle');
+
+                    setTimeout(() => {
+                        if (cvSuccess) cvSuccess.classList.remove('active');
+                        closeCVModal();
+                    }, 2500);
+                }, 2000);
+            }
+        });
+    }
+
+    /* Remove DOC button handler since we removed it */
+    const docBtn = document.getElementById('downloadDOC');
+    if (docBtn) docBtn.remove();
+
+    /* ==========================================
+       24. EMAILJS CONTACT FORM
+       ========================================== */
+    /*
+     * To enable EmailJS:
+     * 1. Go to https://www.emailjs.com/ and create free account
+     * 2. Create an Email Service (Gmail/Outlook)
+     * 3. Create an Email Template with variables: {{name}}, {{email}}, {{subject}}, {{message}}
+     * 4. Replace the IDs below with your own
+     */
+
+    const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';      // Replace with your key
+    const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';      // Replace with your service ID
+    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';     // Replace with your template ID
+
+    /* Initialize EmailJS */
+    if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+
+    /* Override contact form submit */
+    const contactFormEl = document.getElementById('contactForm');
+    const formStatus    = document.getElementById('formStatus');
+    const submitBtnEl   = document.getElementById('submitBtn');
+
+    if (contactFormEl) {
+        contactFormEl.removeEventListener('submit', contactFormEl._handler);
+
+        contactFormEl.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nameVal    = contactFormEl.querySelector('#name')?.value.trim();
+            const emailVal   = contactFormEl.querySelector('#email')?.value.trim();
+            const subjectVal = contactFormEl.querySelector('#subject')?.value.trim();
+            const messageVal = contactFormEl.querySelector('#message')?.value.trim();
+
+            /* Validation */
+            if (!nameVal || !emailVal || !messageVal) {
+                showFormStatus('Please fill all required fields.', 'error');
+                showToast('Please fill all required fields.', 'fas fa-exclamation-circle');
+                return;
+            }
+
+            /* Email validation */
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailVal)) {
+                showFormStatus('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            /* Show sending state */
+            const btnText = submitBtnEl?.querySelector('.btn-text');
+            const btnIcon = submitBtnEl?.querySelector('.btn-icon');
+            if (btnText) btnText.textContent = 'SENDING...';
+            if (btnIcon) btnIcon.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            if (submitBtnEl) submitBtnEl.disabled = true;
+
+            showFormStatus('Sending your message...', 'sending');
+
+            try {
+                /* Check if EmailJS is configured */
+                if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                        name:    nameVal,
+                        email:   emailVal,
+                        subject: subjectVal || 'Portfolio Contact',
+                        message: messageVal
+                    });
+                } else {
+                    /* Simulate sending if EmailJS not configured */
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                }
+
+                showFormStatus('Message sent successfully! I\'ll reply within 24 hours.', 'success');
+                showToast('Message sent! I\'ll reply within 24 hours.', 'fas fa-paper-plane');
+                contactFormEl.reset();
+                trackEvent('Contact', 'form_submit', 'success');
+
+            } catch (error) {
+                console.error('EmailJS Error:', error);
+                showFormStatus('Failed to send. Please try email directly.', 'error');
+                showToast('Failed to send. Please try email directly.', 'fas fa-exclamation-triangle');
+                trackEvent('Contact', 'form_submit', 'error');
+            }
+
+            /* Reset button */
+            if (btnText) btnText.textContent = 'SEND MESSAGE';
+            if (btnIcon) btnIcon.innerHTML = '<i class="fas fa-paper-plane"></i>';
+            if (submitBtnEl) submitBtnEl.disabled = false;
+        });
+    }
+
+    function showFormStatus(message, type) {
+        if (!formStatus) return;
+        formStatus.textContent = message;
+        formStatus.className   = 'form-status';
+        formStatus.classList.add('form-status-' + type, 'visible');
+
+        if (type === 'success' || type === 'error') {
+            setTimeout(() => {
+                formStatus.classList.remove('visible');
+            }, 5000);
+        }
+    }
+
+    /* ==========================================
+       25. KEYBOARD SHORTCUTS
+       ========================================== */
+    const shortcutsModal = document.getElementById('shortcutsModal');
+    const shortcutsClose = document.getElementById('shortcutsClose');
+    const keyboardHint   = document.getElementById('keyboardHint');
+
+    function scrollToSection(id) {
+        const el = document.querySelector(id);
+        if (el) {
+            const top = el.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top, behavior: 'smooth' });
+        }
+    }
+
+    document.addEventListener('keydown', (e) => {
+        /* Don't trigger when typing in inputs */
+        const tag = document.activeElement?.tagName.toLowerCase();
+        if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+
+        /* Don't trigger with Ctrl/Alt/Meta */
+        if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+        switch (e.key.toLowerCase()) {
+            case '?':
+                e.preventDefault();
+                if (shortcutsModal) shortcutsModal.classList.toggle('active');
+                break;
+            case 'h':
+                scrollToSection('#home');
+                break;
+            case 'a':
+                scrollToSection('#about');
+                break;
+            case 'e':
+                scrollToSection('#experience');
+                break;
+            case 's':
+                scrollToSection('#skills');
+                break;
+            case 'p':
+                scrollToSection('#projects');
+                break;
+            case 'c':
+                scrollToSection('#contact');
+                break;
+            case 'd':
+                openCVModal();
+                trackEvent('Shortcut', 'keyboard', 'download_cv');
+                break;
+            case 't':
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                break;
+            case 'w':
+                const waBtn = document.getElementById('whatsappBtn');
+                if (waBtn) waBtn.click();
+                break;
+            case '1':
+                document.querySelector('[data-theme="cyber"]')?.click();
+                break;
+            case '2':
+                document.querySelector('[data-theme="neon"]')?.click();
+                break;
+            case '3':
+                document.querySelector('[data-theme="matrix"]')?.click();
+                break;
+            case '4':
+                document.querySelector('[data-theme="gold"]')?.click();
+                break;
+            case 'escape':
+                if (shortcutsModal) shortcutsModal.classList.remove('active');
+                closeCVModal();
+                closeLightbox();
+                break;
+        }
+    });
+
+    if (shortcutsClose) {
+        shortcutsClose.addEventListener('click', () => {
+            shortcutsModal.classList.remove('active');
+        });
+    }
+
+    if (shortcutsModal) {
+        shortcutsModal.querySelector('.shortcuts-overlay')?.addEventListener('click', () => {
+            shortcutsModal.classList.remove('active');
+        });
+    }
+
+    /* Hide keyboard hint after 5 seconds */
+    if (keyboardHint) {
+        setTimeout(() => {
+            keyboardHint.classList.add('visible');
+            setTimeout(() => {
+                keyboardHint.classList.remove('visible');
+            }, 5000);
+        }, 3000);
+    }
+
+    /* ==========================================
+       26. VISITOR COUNTER (localStorage based)
+       ========================================== */
+    function initVisitorCounter() {
+        const counterEl = document.getElementById('visitorCount');
+        if (!counterEl) return;
+
+        let visits = parseInt(localStorage.getItem('sb_visit_count') || '0');
+
+        /* Check if this is a new session */
+        if (!sessionStorage.getItem('sb_session_active')) {
+            visits++;
+            localStorage.setItem('sb_visit_count', visits);
+            sessionStorage.setItem('sb_session_active', 'true');
+        }
+
+        counterEl.textContent = visits;
+
+        /* Show counter after scroll */
+        const visitorEl = document.getElementById('visitorCounter');
+        if (visitorEl) {
+            window.addEventListener('scroll', () => {
+                visitorEl.classList.toggle('visible', window.scrollY > 200);
+            }, { passive: true });
+        }
+    }
+    initVisitorCounter();
+
+    /* ==========================================
+       27. PAGE LOAD SPEED
+       ========================================== */
+    function showLoadSpeed() {
+        const loadSpeedEl    = document.getElementById('loadSpeed');
+        const loadSpeedValue = document.getElementById('loadSpeedValue');
+
+        if (!loadSpeedEl || !loadSpeedValue) return;
+
+        window.addEventListener('load', () => {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            if (perfData) {
+                const loadTime = ((perfData.loadEventEnd - perfData.startTime) / 1000).toFixed(1);
+                loadSpeedValue.textContent = loadTime + 's';
+
+                setTimeout(() => {
+                    loadSpeedEl.classList.add('visible');
+                    setTimeout(() => {
+                        loadSpeedEl.classList.remove('visible');
+                    }, 4000);
+                }, 2000);
+            }
+        });
+    }
+    showLoadSpeed();
+
+    /* ==========================================
+       28. EASTER EGG (Konami Code)
+       ========================================== */
+    const konamiCode = [
+        'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+        'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+        'b', 'a'
+    ];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === konamiCode[konamiIndex]) {
+            konamiIndex++;
+            if (konamiIndex === konamiCode.length) {
+                konamiIndex = 0;
+                const easterEgg = document.getElementById('easterEgg');
+                if (easterEgg) {
+                    easterEgg.classList.add('active');
+                    trackEvent('Easter Egg', 'triggered', 'konami_code');
+                }
+            }
+        } else {
+            konamiIndex = 0;
+        }
+    });
+
+    const easterEggClose = document.getElementById('easterEggClose');
+    if (easterEggClose) {
+        easterEggClose.addEventListener('click', () => {
+            document.getElementById('easterEgg')?.classList.remove('active');
+        });
+    }
+
+    /* ==========================================
+       29. AUTO GREETING BASED ON TIME
+       ========================================== */
+    function updateGreeting() {
+        const greetingEl = document.querySelector('.greeting-text');
+        if (!greetingEl) return;
+
+        const hour = new Date().getHours();
+        let greeting = 'HELLO, I AM';
+
+        if (hour >= 5 && hour < 12)       greeting = 'GOOD MORNING, I AM';
+        else if (hour >= 12 && hour < 17)  greeting = 'GOOD AFTERNOON, I AM';
+        else if (hour >= 17 && hour < 21)  greeting = 'GOOD EVENING, I AM';
+        else                               greeting = 'HELLO NIGHT OWL, I AM';
+
+        greetingEl.textContent = greeting;
+    }
+    updateGreeting();
+
+    /* ==========================================
+       30. TRACK TIME ON PAGE
+       ========================================== */
+    let pageStartTime = Date.now();
+
+    window.addEventListener('beforeunload', () => {
+        const timeSpent = Math.round((Date.now() - pageStartTime) / 1000);
+        trackEvent('Engagement', 'time_on_page', timeSpent + ' seconds');
+    });
