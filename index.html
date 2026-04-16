@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cyber">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sanket Brahmbhatt — QA Manual Tester with 2+ years of experience in Software Quality Assurance across E-learning, Telecom, and Forex Trading domains.">
+    <meta name="keywords" content="QA Tester, Manual Testing, Software Testing, Quality Assurance, Sanket Brahmbhatt, Portfolio">
+    <meta name="author" content="Sanket Brahmbhatt">
+    <meta property="og:title" content="Sanket Brahmbhatt | QA Manual Tester">
+    <meta property="og:description" content="Detail-oriented QA Manual Tester with 2+ years of experience in Software Quality Assurance.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Sanket Brahmbhatt | QA Manual Tester</title>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T43XEEP1G7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-T43XEEP1G7');
+    </script>
+    
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://github.com/sanketbarot/portfolio2.git">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- ✅ Apple touch icon -->
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+    <div class="cursor-text" id="cursorText"></div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-inner">
+            <div class="loader-cube">
+                <div class="cube-face front"></div>
+                <div class="cube-face back"></div>
+                <div class="cube-face right"></div>
+                <div class="cube-face left"></div>
+                <div class="cube-face top"></div>
+                <div class="cube-face bottom"></div>
+            </div>
+            <p class="loader-text">LOADING PORTFOLIO</p>
+            <div class="loader-bar">
+                <div class="loader-bar-fill" id="loaderBar"></div>
+            </div>
+            <p class="loader-percent" id="loaderPercent">0%</p>
+        </div>
+    </div>
+
+    <!-- Backgrounds -->
+    <canvas id="particleCanvas"></canvas>
+    <div class="noise-overlay"></div>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher" id="themeSwitcher">
+        <div class="theme-btn active" data-theme="cyber" title="Cyber Theme">
+            <span style="background: #00f0ff;"></span>
+        </div>
+        <div class="theme-btn" data-theme="neon" title="Neon Theme">
+            <span style="background: #ff2d75;"></span>
+        </div>
+        <div class="theme-btn" data-theme="matrix" title="Matrix Theme">
+            <span style="background: #00ff41;"></span>
+        </div>
+        <div class="theme-btn" data-theme="gold" title="Gold Theme">
+            <span style="background: #ffd700;"></span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">
+            <span class="logo-text">S</span>
+            <span class="logo-dot">.</span>
+            <span class="logo-text">B</span>
+        </div>
+        <div class="nav-availability" id="availabilityBadge">
+            <span class="availability-dot"></span>
+            <span class="availability-text">Available for Work</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" class="nav-link active" data-section="home">Home</a>
+            <a href="#about" class="nav-link" data-section="about">About</a>
+            <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+            <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+            <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+            <a href="#education" class="nav-link" data-section="education">Education</a>
+            <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+        </div>
+        <a href="#" class="nav-cv-btn" id="navDownloadCV">
+            <i class="fas fa-download"></i>
+            <span>CV</span>
+        </a>
+        <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="page-progress">
+        <div class="page-progress-fill" id="pageProgress"></div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="#home" class="mobile-link" data-index="01">Home</a>
+            <a href="#about" class="mobile-link" data-index="02">About</a>
+            <a href="#experience" class="mobile-link" data-index="03">Experience</a>
+            <a href="#skills" class="mobile-link" data-index="04">Skills</a>
+            <a href="#projects" class="mobile-link" data-index="05">Projects</a>
+            <a href="#education" class="mobile-link" data-index="06">Education</a>
+            <a href="#contact" class="mobile-link" data-index="07">Contact</a>
+            <a href="#" class="mobile-link mobile-cv-link" id="mobileDownloadCV">
+                <i class="fas fa-download"></i> Download CV
+            </a>
+        </div>
+    </div>
+
+    <!-- Side Socials -->
+    <div class="side-socials">
+        <a href="#" class="social-icon" data-tooltip="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-icon" data-tooltip="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="#" class="social-icon" data-tooltip="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="mailto:sanketbarot3901@gmail.com" class="social-icon" data-tooltip="Email" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <div class="social-line"></div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <span>SCROLL</span>
+        <div class="scroll-line">
+            <div class="scroll-dot"></div>
+        </div>
+    </div>
+
+    <!-- Section Counter -->
+    <div class="section-counter" id="sectionCounter">
+        <span class="counter-current">01</span>
+        <span class="counter-divider">/</span>
+        <span class="counter-total">07</span>
+    </div>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero" id="home">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-glitch-bg" aria-hidden="true">
+            <span>SANKET</span>
+            <span>SANKET</span>
+            <span>SANKET</span>
+        </div>
+        <div class="hero-content">
+            <div class="hero-greeting reveal-text">
+                <span class="greeting-line"></span>
+                <span class="greeting-text">HELLO, I AM</span>
+                <span class="greeting-line"></span>
+            </div>
+            <h1 class="hero-name">
+                <span class="name-first reveal-up" data-text="SANKET">SANKET</span>
+                <span class="name-last reveal-up" data-delay="200" data-text="BRAHMBHATT">BRAHMBHATT</span>
+            </h1>
+            <div class="hero-title-wrapper reveal-up" data-delay="400">
+                <div class="hero-title-box">
+                    <div class="title-scanner"></div>
+                    <span class="hero-title">QA MANUAL</span>
+                    <span class="hero-title-divider">+</span>
+                    <span class="hero-title">TESTER</span>
+                </div>
+            </div>
+            <div class="typing-wrapper reveal-up" data-delay="500">
+                <span class="typing-prefix">I ensure </span>
+                <span class="typing-text" id="typingText"></span>
+                <span class="typing-cursor">|</span>
+            </div>
+            <div class="hero-buttons reveal-up" data-delay="700">
+                <a href="#contact" class="btn btn-primary magnetic-btn">
+                    <span class="btn-text">CONTACT ME</span>
+                    <span class="btn-icon"><i class="fas fa-arrow-right"></i></span>
+                    <div class="btn-glow"></div>
+                </a>
+                <a href="#projects" class="btn btn-secondary magnetic-btn">
+                    <span class="btn-text">VIEW PROJECTS</span>
+                    <span class="btn-icon"><i class="fas fa-th-large"></i></span>
+                </a>
+                <a href="#" class="btn btn-cv magnetic-btn" id="heroDownloadCV">
+                    <span class="btn-text">DOWNLOAD CV</span>
+                    <span class="btn-icon"><i class="fas fa-download"></i></span>
+                    <div class="btn-glow"></div>
+                </a>
+            </div>
+            <div class="hero-stats reveal-up" data-delay="900">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="2">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Years Exp.</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="500">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Bugs Found</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="3">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Domains</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="10">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+            </div>
+        </div>
+        <div class="floating-elements">
+            <div class="float-shape shape-1"></div>
+            <div class="float-shape shape-2"></div>
+            <div class="float-shape shape-3"></div>
+            <div class="float-shape shape-4"></div>
+            <div class="float-shape shape-5"></div>
+            <div class="float-shape shape-6"></div>
+        </div>
+        <div class="scroll-down-arrow">
+            <a href="#about" aria-label="Scroll to About section">
+                <div class="mouse-icon">
+                    <div class="mouse-wheel"></div>
+                </div>
+                <span>Scroll Down</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section class="about" id="about">
+        <div class="section-bg-text" aria-hidden="true">ABOUT</div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title reveal-up">About <span class="highlight">Me</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-image-wrapper reveal-left">
+                    <div class="about-image-box tilt-card">
+                        <div class="about-image-placeholder">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-bug"></i>
+                            </div>
+                            <span>S.B</span>
+                        </div>
+                        <div class="about-image-border"></div>
+                        <div class="about-image-dots"></div>
+                        <div class="image-glitch-overlay"></div>
+                    </div>
+                    <div class="about-badge">
+                        <span class="badge-number" data-count="2">0</span>
+                        <span class="badge-plus">+</span>
+                        <span class="badge-text">Years<br>Experience</span>
+                    </div>
+                </div>
+                <div class="about-text-wrapper reveal-right">
+                    <div class="about-quote">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="quote-text">"Quality is not an act, it is a habit."</p>
+                    </div>
+                    <p class="about-description">
+                        Hello, I am <span class="highlight">Sanket Brahmbhatt</span> — a detail-oriented
+                        <span class="highlight">QA Manual Tester</span> with over 2+ years of experience in
+                        Software Quality Assurance across E-learning, Telecom, and Forex Trading domains.
+                        Skilled in identifying defects, improving product quality, and delivering reliable applications.
+                        Strong understanding of SDLC, STLC, and Agile methodologies with hands-on experience
+                        in web and mobile testing.
+                    </p>
+                    <div class="about-facts">
+                        <div class="fact-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>QA Tester at PhiBonacci Solutions Pvt. Ltd.</span>
+                        </div>
+                        <div class="fact-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>500+ Defects Identified & Reported</span>
+                        </div>
+                        <div class="fact-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Expert in Functional, Regression & UAT Testing</span>
+                        </div>
+                        <div class="fact-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Available for New Opportunities</span>
+                        </div>
+                    </div>
+                    <div class="marquee-wrapper">
+                        <div class="marquee-track">
+                            <span>MANUAL TESTING • FUNCTIONAL TESTING • REGRESSION • UAT • JIRA • AGILE • MOBILE TESTING • WEB TESTING • </span>
+                            <span>MANUAL TESTING • FUNCTIONAL TESTING • REGRESSION • UAT • JIRA • AGILE • MOBILE TESTING • WEB TESTING • </span>
+                        </div>
+                    </div>
+                    <div class="about-info-grid">
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Name</span>
+                            <span class="info-value">Sanket Brahmbhatt</span>
+                        </div>
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Email</span>
+                            <span class="info-value">sanketbarot3901@gmail.com</span>
+                        </div>
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Location</span>
+                            <span class="info-value">Ahmedabad, India</span>
+                        </div>
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Languages</span>
+                            <span class="info-value">Gujarati, Hindi, English</span>
+                        </div>
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Domain Expertise</span>
+                            <span class="info-value">E-Learning, Telecom, Forex</span>
+                        </div>
+                        <div class="info-item hover-lift">
+                            <span class="info-label">Status</span>
+                            <span class="info-value status-available">
+                                <span class="status-dot-inline"></span>
+                                Available for Work
+                            </span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-cv about-cv-btn magnetic-btn" id="aboutDownloadCV">
+                        <span class="btn-text">DOWNLOAD CV</span>
+                        <span class="btn-icon"><i class="fas fa-file-pdf"></i></span>
+                        <div class="btn-glow"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MARQUEE BANNER ==================== -->
+    <div class="full-marquee">
+        <div class="full-marquee-track">
+            <span>QA TESTER</span><span class="marquee-star">✦</span>
+            <span>MANUAL TESTING</span><span class="marquee-star">✦</span>
+            <span>BUG HUNTER</span><span class="marquee-star">✦</span>
+            <span>QUALITY ASSURANCE</span><span class="marquee-star">✦</span>
+            <span>AGILE TESTING</span><span class="marquee-star">✦</span>
+            <span>QA TESTER</span><span class="marquee-star">✦</span>
+            <span>MANUAL TESTING</span><span class="marquee-star">✦</span>
+            <span>BUG HUNTER</span><span class="marquee-star">✦</span>
+            <span>QUALITY ASSURANCE</span><span class="marquee-star">✦</span>
+            <span>AGILE TESTING</span><span class="marquee-star">✦</span>
+        </div>
+    </div>
+
+    <!-- ==================== EXPERIENCE SECTION ==================== -->
+    <section class="experience" id="experience">
+        <div class="section-bg-text" aria-hidden="true">WORK</div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title reveal-up">Work <span class="highlight">Experience</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-line">
+                    <div class="timeline-line-fill" id="timelineFill"></div>
+                </div>
+                <div class="timeline-item reveal-up" data-delay="0">
+                    <div class="timeline-dot"><div class="dot-pulse"></div></div>
+                    <div class="timeline-card hover-lift">
+                        <div class="card-header">
+                            <span class="card-date">Nov 2022 — May 2023</span>
+                            <div class="card-status past">Completed</div>
+                        </div>
+                        <h3 class="card-title">QA Manual Tester (Internship)</h3>
+                        <p class="card-company"><i class="fas fa-building"></i> i2iCore Technologies — Ahmedabad</p>
+                        <p class="card-description">Identified and reported 500+ defects, including critical issues. Assisted in test case execution and defect analysis. Participated in test planning and execution phases. Collaborated with team to improve application quality and user experience.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Defect Reporting</span>
+                            <span class="card-tag">Test Execution</span>
+                            <span class="card-tag">Test Planning</span>
+                            <span class="card-tag">Quality Analysis</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal-up" data-delay="300">
+                    <div class="timeline-dot active"><div class="dot-pulse"></div></div>
+                    <div class="timeline-card active-card hover-lift">
+                        <div class="card-glow-border"></div>
+                        <div class="card-header">
+                            <span class="card-date">June 2023 — Present</span>
+                            <div class="card-status current">Current</div>
+                        </div>
+                        <h3 class="card-title">Quality Assurance Tester</h3>
+                        <p class="card-company"><i class="fas fa-building"></i> PhiBonacci Solutions Pvt. Ltd. — Ahmedabad</p>
+                        <p class="card-description">Strong understanding of SDLC, STLC, Agile & Waterfall methodologies. Performed testing on web and mobile applications (iOS & Android). Designed and executed test plans and test cases. Performed Functional, Regression, Smoke, UAT, UI, Integration & System testing. Collaborated with developers using Jira.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Jira</span>
+                            <span class="card-tag">Agile</span>
+                            <span class="card-tag">Mobile Testing</span>
+                            <span class="card-tag">Web Testing</span>
+                            <span class="card-tag">UAT</span>
+                            <span class="card-tag">Regression</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SKILLS SECTION ==================== -->
+    <section class="skills" id="skills">
+        <div class="section-bg-text" aria-hidden="true">SKILLS</div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title reveal-up">Skills & <span class="highlight">Expertise</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="skill-tabs reveal-up">
+                <button class="skill-tab active" data-category="all">All</button>
+                <button class="skill-tab" data-category="tools">Tools</button>
+                <button class="skill-tab" data-category="testing">Testing Types</button>
+                <button class="skill-tab" data-category="methodology">Methodology</button>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card reveal-up tilt-card" data-delay="0" data-category="tools">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fab fa-jira"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">Jira</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+                    <span class="skill-percent">90%</span>
+                </div>
+                <div class="skill-card reveal-up tilt-card" data-delay="100" data-category="tools">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fas fa-tasks"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">ClickUp</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
+                    <span class="skill-percent">85%</span>
+                </div>
+                <div class="skill-card reveal-up tilt-card" data-delay="200" data-category="tools">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fas fa-code"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">Swagger</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="80"></div></div>
+                    <span class="skill-percent">80%</span>
+                </div>
+                <div class="skill-card reveal-up tilt-card" data-delay="300" data-category="testing">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fas fa-check-double"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">Functional Testing</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="95"></div></div>
+                    <span class="skill-percent">95%</span>
+                </div>
+                <div class="skill-card reveal-up tilt-card" data-delay="400" data-category="testing">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fas fa-redo-alt"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">Regression Testing</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="92"></div></div>
+                    <span class="skill-percent">92%</span>
+                </div>
+                <div class="skill-card reveal-up tilt-card" data-delay="500" data-category="testing">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fas fa-user-check"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">UAT Testing</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+                    <span class="skill-percent">90%</span>
+                </div>
+                <div class="skill-card reveal-up tilt-card" data-delay="600" data-category="testing">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fas fa-desktop"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">UI Testing</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="88"></div></div>
+                    <span class="skill-percent">88%</span>
+                </div>
+                <div class="skill-card reveal-up tilt-card" data-delay="700" data-category="testing">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fas fa-box"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">Black Box Testing</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+                    <span class="skill-percent">90%</span>
+                </div>
+                <div class="skill-card reveal-up tilt-card" data-delay="800" data-category="methodology">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fas fa-sync-alt"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">Agile / Scrum</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+                    <span class="skill-percent">90%</span>
+                </div>
+                <div class="skill-card reveal-up tilt-card" data-delay="900" data-category="methodology">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fas fa-water"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">Waterfall</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
+                    <span class="skill-percent">85%</span>
+                </div>
+                <div class="skill-card reveal-up tilt-card" data-delay="1000" data-category="tools">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fas fa-mobile-alt"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">Mobile Testing</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="88"></div></div>
+                    <span class="skill-percent">88%</span>
+                </div>
+                <div class="skill-card reveal-up tilt-card" data-delay="1100" data-category="tools">
+                    <div class="skill-icon-wrapper">
+                        <div class="skill-icon-bg"></div>
+                        <i class="skill-icon fas fa-globe"></i>
+                        <div class="skill-ring"></div>
+                    </div>
+                    <h3 class="skill-name">Web App Testing</h3>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="92"></div></div>
+                    <span class="skill-percent">92%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROJECTS SECTION ==================== -->
+    <section class="portfolio" id="projects">
+        <div class="section-bg-text" aria-hidden="true">WORK</div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2 class="section-title reveal-up">My <span class="highlight">Projects</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="portfolio-filter reveal-up">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="elearning">E-Learning</button>
+                <button class="filter-btn" data-filter="telecom">Telecom</button>
+                <button class="filter-btn" data-filter="forex">Forex</button>
+            </div>
+            <div class="portfolio-grid" id="portfolioGrid">
+                <div class="portfolio-item reveal-up" data-filter="elearning" data-delay="0">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-placeholder">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>E-Learning</span>
+                            </div>
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-overlay-content">
+                                    <span class="portfolio-category">E-Learning Platform</span>
+                                    <h3 class="portfolio-title">E-Learning Platform Testing</h3>
+                                    <p class="portfolio-desc">Comprehensive testing of login, registration, course enrollment, video playback, and progress tracking modules.</p>
+                                    <div class="portfolio-actions">
+                                        <button class="portfolio-view-btn" data-project="1">
+                                            <i class="fas fa-expand"></i> View Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h4>E-Learning Platform</h4>
+                            <span class="portfolio-tag">Functional • Regression • UAT • UI</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item reveal-up" data-filter="telecom" data-delay="200">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-placeholder">
+                                <i class="fas fa-broadcast-tower"></i>
+                                <span>Telecom</span>
+                            </div>
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-overlay-content">
+                                    <span class="portfolio-category">Telecom Application</span>
+                                    <h3 class="portfolio-title">Telecom Service Application</h3>
+                                    <p class="portfolio-desc">Tested recharge, plan selection, login, billing system. Validated data accuracy and user flows.</p>
+                                    <div class="portfolio-actions">
+                                        <button class="portfolio-view-btn" data-project="2">
+                                            <i class="fas fa-expand"></i> View Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h4>Telecom Service Application</h4>
+                            <span class="portfolio-tag">Regression • Data Validation • User Flow</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item reveal-up" data-filter="forex" data-delay="400">
+                    <div class="portfolio-card featured-card">
+                        <div class="featured-badge"><i class="fas fa-star"></i> Featured</div>
+                        <div class="portfolio-image">
+                            <div class="portfolio-placeholder">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Forex Trading</span>
+                            </div>
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-overlay-content">
+                                    <span class="portfolio-category">Forex Trading Application</span>
+                                    <h3 class="portfolio-title">Forex Trading Platform</h3>
+                                    <p class="portfolio-desc">Tested trading flow, real-time chart analysis, UPI & crypto payment gateway transactions. Validated deposit/withdrawal process and identified critical bugs.</p>
+                                    <div class="portfolio-actions">
+                                        <button class="portfolio-view-btn" data-project="3">
+                                            <i class="fas fa-expand"></i> View Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h4>Forex Trading Platform ⭐</h4>
+                            <span class="portfolio-tag">Payment Gateway • UAT • Critical Bugs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== EDUCATION SECTION ==================== -->
+    <section class="education" id="education">
+        <div class="section-bg-text" aria-hidden="true">LEARN</div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">05</span>
+                <h2 class="section-title reveal-up">Education & <span class="highlight">Learning</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="education-grid">
+                <div class="education-column reveal-left">
+                    <h3 class="education-column-title"><i class="fas fa-graduation-cap"></i> Education</h3>
+                    <div class="education-card hover-lift">
+                        <div class="education-year">2019 — 2022</div>
+                        <h4 class="education-degree">BSc in Information Technology</h4>
+                        <p class="education-school"><i class="fas fa-university"></i> Indus University — Ahmedabad</p>
+                        <p class="education-desc">Specialized in Information Technology with focus on software development and testing fundamentals.</p>
+                    </div>
+                    <div class="education-card hover-lift">
+                        <div class="education-year">2018 — 2019</div>
+                        <h4 class="education-degree">HSC (Higher Secondary)</h4>
+                        <p class="education-school"><i class="fas fa-school"></i> RR Dwivedi School — Ahmedabad</p>
+                        <p class="education-desc">Completed higher secondary education.</p>
+                    </div>
+                </div>
+                <div class="education-column reveal-right">
+                    <h3 class="education-column-title"><i class="fas fa-certificate"></i> Core Competencies</h3>
+                    <div class="education-card cert-card hover-lift">
+                        <div class="cert-badge"><i class="fas fa-award"></i></div>
+                        <h4 class="education-degree">SDLC & STLC Expertise</h4>
+                        <p class="education-school"><i class="fas fa-cog"></i> Software Development Life Cycle</p>
+                        <div class="cert-tags">
+                            <span class="cert-tag">SDLC</span>
+                            <span class="cert-tag">STLC</span>
+                            <span class="cert-tag">Test Planning</span>
+                        </div>
+                    </div>
+                    <div class="education-card cert-card hover-lift">
+                        <div class="cert-badge"><i class="fas fa-award"></i></div>
+                        <h4 class="education-degree">Agile & Scrum Methodology</h4>
+                        <p class="education-school"><i class="fas fa-sync-alt"></i> Agile Testing Framework</p>
+                        <div class="cert-tags">
+                            <span class="cert-tag">Agile</span>
+                            <span class="cert-tag">Scrum</span>
+                            <span class="cert-tag">Sprint</span>
+                        </div>
+                    </div>
+                    <div class="education-card cert-card hover-lift">
+                        <div class="cert-badge"><i class="fas fa-award"></i></div>
+                        <h4 class="education-degree">Defect Management & Reporting</h4>
+                        <p class="education-school"><i class="fas fa-bug"></i> Bug Tracking & Resolution</p>
+                        <div class="cert-tags">
+                            <span class="cert-tag">Jira</span>
+                            <span class="cert-tag">ClickUp</span>
+                            <span class="cert-tag">Bug Reporting</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PHILOSOPHY SECTION ==================== -->
+    <section class="philosophy" id="philosophy">
+        <div class="container">
+            <div class="philosophy-slider">
+                <div class="philosophy-slide active">
+                    <div class="philosophy-icon"><i class="fas fa-bug"></i></div>
+                    <h3>"Quality is not an act, it is a habit."</h3>
+                    <p>— Aristotle</p>
+                </div>
+                <div class="philosophy-slide">
+                    <div class="philosophy-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>"Testing leads to failure, and failure leads to understanding."</h3>
+                    <p>— Burt Rutan</p>
+                </div>
+                <div class="philosophy-slide">
+                    <div class="philosophy-icon"><i class="fas fa-search"></i></div>
+                    <h3>"The more you test, the more bugs you find. The fewer bugs, the better the product."</h3>
+                    <p>— My Philosophy</p>
+                </div>
+            </div>
+            <div class="philosophy-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section class="contact" id="contact">
+        <div class="section-bg-text" aria-hidden="true">CONTACT</div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">06</span>
+                <h2 class="section-title reveal-up">Get In <span class="highlight">Touch</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info reveal-left">
+                    <h3 class="contact-subtitle">Let's work together</h3>
+                    <p class="contact-text">Looking for a dedicated QA Tester? I'm available for full-time positions, contract work, and freelance testing projects. Let's ensure your application is bug-free and production-ready.</p>
+                    <div class="response-promise">
+                        <i class="fas fa-bolt"></i>
+                        <span>Usually responds within <strong>24 hours</strong></span>
+                    </div>
+                    <div class="contact-cards">
+                        <div class="contact-card hover-lift">
+                            <div class="contact-card-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="contact-card-info">
+                                <span class="contact-card-label">Mobile</span>
+                                <a href="tel:+917487980840" class="contact-card-value">+91 74879 80840</a>
+                            </div>
+                        </div>
+                        <div class="contact-card hover-lift">
+                            <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-card-info">
+                                <span class="contact-card-label">Email</span>
+                                <a href="mailto:sanketbarot3901@gmail.com" class="contact-card-value">sanketbarot3901@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-card hover-lift">
+                            <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-card-info">
+                                <span class="contact-card-label">Location</span>
+                                <span class="contact-card-value">Ahmedabad, Gujarat, India</span>
+                            </div>
+                        </div>
+                        <div class="contact-card hover-lift">
+                            <div class="contact-card-icon"><i class="fab fa-linkedin-in"></i></div>
+                            <div class="contact-card-info">
+                                <span class="contact-card-label">LinkedIn</span>
+                                <a href="#" class="contact-card-value">Sanket Brahmbhatt</a>
+                            </div>
+                        </div>
+                        <div class="contact-card cv-download-card hover-lift" id="contactDownloadCV">
+                            <div class="contact-card-icon cv-icon"><i class="fas fa-file-download"></i></div>
+                            <div class="contact-card-info">
+                                <span class="contact-card-label">Resume</span>
+                                <span class="contact-card-value cv-card-text">Download my CV / Resume</span>
+                            </div>
+                            <div class="cv-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper reveal-right">
+                    <form class="contact-form" id="contactForm" novalidate>
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" class="form-input" placeholder=" " required autocomplete="name">
+                            <label for="name" class="form-label">Your Name</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" class="form-input" placeholder=" " required autocomplete="email">
+                            <label for="email" class="form-label">Your Email</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" class="form-input" placeholder=" " required>
+                            <label for="subject" class="form-label">Subject</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" class="form-input form-textarea" placeholder=" " required></textarea>
+                            <label for="message" class="form-label">Your Message</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit magnetic-btn">
+                            <span class="btn-text">SEND MESSAGE</span>
+                            <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-text">S</span>
+                    <span class="logo-dot">.</span>
+                    <span class="logo-text">B</span>
+                </div>
+                <p class="footer-tagline">QA Manual Tester</p>
+                <div class="footer-nav">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-socials">
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:sanketbarot3901@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+                <a href="#" class="footer-cv-btn" id="footerDownloadCV"><i class="fas fa-download"></i> Download CV</a>
+                <div class="footer-line"></div>
+                <p class="footer-copyright">&copy; 2024 Sanket Brahmbhatt. All Rights Reserved.</p>
+                <p class="footer-made">Made with <span class="heart">❤</span> & Quality</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating CV Button -->
+    <div class="floating-cv-btn" id="floatingCVBtn" aria-label="Download CV">
+        <div class="floating-cv-pulse"></div>
+        <i class="fas fa-file-download"></i>
+        <span class="floating-cv-tooltip">Download CV</span>
+    </div>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/917487980840?text=Hi%20Sanket!%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20an%20opportunity."
+       target="_blank" rel="noopener noreferrer" class="whatsapp-btn" id="whatsappBtn" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">Chat on WhatsApp</span>
+    </a>
+
+    <!-- CV Modal -->
+    <div class="cv-modal" id="cvModal" role="dialog" aria-modal="true" aria-labelledby="cvModalTitle">
+        <div class="cv-modal-overlay" id="cvModalOverlay"></div>
+        <div class="cv-modal-content">
+            <button class="cv-modal-close" id="cvModalClose" aria-label="Close modal"><i class="fas fa-times"></i></button>
+            <div class="cv-modal-icon">
+                <div class="cv-modal-icon-bg"></div>
+                <i class="fas fa-file-pdf"></i>
+            </div>
+            <h3 class="cv-modal-title" id="cvModalTitle">Download My CV</h3>
+            <p class="cv-modal-text">Get a detailed look at my QA experience, skills, and project portfolio.</p>
+            <div class="cv-modal-preview">
+                <div class="cv-preview-header">
+                    <div class="cv-preview-avatar">SB</div>
+                    <div><h4>Sanket Brahmbhatt</h4><p>QA Manual Tester</p></div>
+                </div>
+                <div class="cv-preview-items">
+                    <div class="cv-preview-item"><i class="fas fa-briefcase"></i><span>2+ Years</span></div>
+                    <div class="cv-preview-item"><i class="fas fa-bug"></i><span>500+ Bugs</span></div>
+                    <div class="cv-preview-item"><i class="fas fa-globe"></i><span>3 Domains</span></div>
+                    <div class="cv-preview-item"><i class="fas fa-project-diagram"></i><span>10+ Projects</span></div>
+                </div>
+            </div>
+            <div class="cv-modal-buttons">
+                <a href="#" class="btn btn-primary cv-download-main" id="downloadPDF">
+                    <span class="btn-text">DOWNLOAD PDF</span>
+                    <span class="btn-icon"><i class="fas fa-file-pdf"></i></span>
+                    <div class="btn-glow"></div>
+                </a>
+                <a href="#" class="btn btn-secondary cv-download-alt" id="downloadDOC">
+                    <span class="btn-text">DOWNLOAD DOC</span>
+                    <span class="btn-icon"><i class="fas fa-file-word"></i></span>
+                </a>
+            </div>
+            <div class="cv-modal-generating" id="cvGenerating">
+                <div class="generating-spinner"></div>
+                <p>Generating your CV...</p>
+            </div>
+            <div class="cv-modal-success" id="cvSuccess">
+                <i class="fas fa-check-circle"></i>
+                <p>CV Downloaded Successfully!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+        <div class="lightbox-overlay"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Close"><i class="fas fa-times"></i></button>
+            <button class="lightbox-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+            <button class="lightbox-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+            <div class="lightbox-image" id="lightboxImage">
+                <div class="lightbox-placeholder"><i class="fas fa-bug"></i><span>Project Preview</span></div>
+            </div>
+            <div class="lightbox-info" id="lightboxInfo">
+                <h3>Project Title</h3>
+                <p>Project description.</p>
+                <div class="lightbox-tags"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="alert">
+        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="toast-message" id="toastMessage">Action completed!</div>
+        <div class="toast-progress"></div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+        <svg class="back-to-top-circle" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="48" id="backToTopCircle"></circle>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
