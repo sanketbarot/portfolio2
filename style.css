@@ -4583,10 +4583,11 @@ section {
     position: relative;
     background: var(--bg-card);
     border: 1px solid rgba(var(--primary-rgb), 0.2);
-    padding: 40px;
+    border-radius: 16px;
+    padding: 36px 32px;
     text-align: center;
-    max-width: 380px;
-    width: 90%;
+    max-width: 400px;
+    width: 92%;
     z-index: 2;
     transform: scale(0.8);
     transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -4596,26 +4597,28 @@ section {
     transform: scale(1);
 }
 
-.qr-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-secondary);
-    font-size: 12px;
+.qr-code {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: var(--transition);
+    box-shadow:
+        0 0 0 1px rgba(var(--primary-rgb), 0.3),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+    position: relative;
+    transition: all 0.3s ease;
 }
 
-.qr-close:hover {
-    border-color: var(--primary);
-    color: var(--primary);
+/* Glowing border on hover */
+.qr-code:hover {
+    box-shadow:
+        0 0 0 2px var(--primary),
+        0 12px 40px rgba(0, 0, 0, 0.5);
 }
 
 .qr-title {
@@ -4642,8 +4645,11 @@ section {
 }
 
 .qr-code canvas {
-    width: 100% !important;
-    height: 100% !important;
+    width:  192px !important;
+    height: 192px !important;
+    display: block;
+    border-radius: 8px;
+    image-rendering: pixelated;   /* keeps QR sharp – no blur */
 }
 
 .qr-url {
@@ -4680,6 +4686,182 @@ section {
     color: var(--bg-dark);
 }
 
+/* CV Section inside QR Modal */
+.qr-cv-section {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.qr-cv-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.qr-cv-buttons a.qr-download-btn {
+    text-decoration: none;
+}
+
+/* Active state for switch buttons */
+.qr-download-btn.active-mode {
+    background: var(--primary);
+    color: var(--bg-dark);
+}
+
+/* ── Corner Accents on QR box ── */
+.qr-code::before,
+.qr-code::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: var(--primary);
+    border-style: solid;
+}
+
+.qr-code::before {
+    top: -2px;
+    left: -2px;
+    border-width: 3px 0 0 3px;
+    border-radius: 4px 0 0 0;
+}
+
+.qr-code::after {
+    bottom: -2px;
+    right: -2px;
+    border-width: 0 3px 3px 0;
+    border-radius: 0 0 4px 0;
+}
+
+/* ── Mode Label (Portfolio / CV) ── */
+.qr-mode-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--primary);
+    background: rgba(var(--primary-rgb), 0.1);
+    border: 1px solid rgba(var(--primary-rgb), 0.3);
+    padding: 4px 14px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+
+/* ── URL text ── */
+.qr-url {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    word-break: break-all;
+}
+
+.qr-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+/* ── Divider ── */
+.qr-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin: 20px 0;
+}
+
+/* ── Button Group ── */
+.qr-btn-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ── Base Button ── */
+.qr-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    background: transparent;
+    border: 1px solid rgba(var(--primary-rgb), 0.4);
+    color: var(--primary);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.qr-action-btn:hover {
+    background: rgba(var(--primary-rgb), 0.15);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.25);
+}
+
+/* Active / filled state */
+.qr-action-btn.btn-filled {
+    background: var(--primary);
+    color: var(--bg-dark);
+    border-color: var(--primary);
+}
+
+.qr-action-btn.btn-filled:hover {
+    background: transparent;
+    color: var(--primary);
+}
+
+/* ── CV Preview strip ── */
+.qr-cv-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(var(--primary-rgb), 0.05);
+    border: 1px solid rgba(var(--primary-rgb), 0.15);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.qr-cv-preview i {
+    font-size: 28px;
+    color: #e74c3c;   /* PDF red */
+    flex-shrink: 0;
+}
+
+.qr-cv-preview-text {
+    flex: 1;
+}
+
+.qr-cv-preview-text strong {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    color: var(--text-primary);
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+
+.qr-cv-preview-text span {
+    font-size: 10px;
+    color: var(--text-muted);
+}
 /* ==========================================
    COOKIE CONSENT
    ========================================== */

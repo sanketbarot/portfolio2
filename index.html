@@ -28,6 +28,7 @@
         gtag('js', new Date());
         gtag('config', 'G-T43XEEP1G7');
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
 
     <!-- Canonical -->
     <link rel="canonical" href="https://sanketbrahmbhatt.com">
@@ -1408,10 +1409,25 @@
             <i class="fas fa-share-alt" aria-hidden="true"></i>
         </button>
         <div class="share-buttons" id="shareButtons" aria-label="Share options" role="menu">
-            <a href="#" class="share-btn share-linkedin"  id="shareLinkedIn"  aria-label="Share on LinkedIn"  role="menuitem" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"  aria-hidden="true"></i></a>
-            <a href="#" class="share-btn share-twitter"   id="shareTwitter"   aria-label="Share on Twitter"   role="menuitem" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"      aria-hidden="true"></i></a>
-            <a href="#" class="share-btn share-whatsapp"  id="shareWhatsApp"  aria-label="Share on WhatsApp"  role="menuitem" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"     aria-hidden="true"></i></a>
-            <a href="#" class="share-btn share-facebook"  id="shareFacebook"  aria-label="Share on Facebook"  role="menuitem" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"   aria-hidden="true"></i></a>
+             <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/sanket-brahmbhatt-03705b227/" 
+            target="_blank" rel="noopener noreferrer" class="social-icon" data-tooltip="LinkedIn" aria-label="LinkedIn Profile">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <!-- GitHub -->
+            <a href="https://github.com/sanketbarot" 
+            target="_blank" rel="noopener noreferrer" class="social-icon" data-tooltip="GitHub" aria-label="GitHub Profile">
+                <i class="fab fa-github"></i>
+            </a>
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/sanket_._barot?igsh=MW9vMTkxbDV3encxMw==" 
+            target="_blank" rel="noopener noreferrer" class="social-icon" data-tooltip="Instagram" aria-label="Instagram Profile">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <!-- Email -->
+            <a href="mailto:sanketbarot3901@gmail.com" class="social-icon" data-tooltip="Email" aria-label="Send Email">
+                <i class="fas fa-envelope"></i>
+            </a>
             <button class="share-btn share-copy" id="shareCopy" aria-label="Copy portfolio link" role="menuitem"><i class="fas fa-link"    aria-hidden="true"></i></button>
             <button class="share-btn share-qr"   id="shareQR"   aria-label="Show QR Code"        role="menuitem"><i class="fas fa-qrcode" aria-hidden="true"></i></button>
         </div>
@@ -1535,27 +1551,71 @@
     </div>
 
     <!-- QR Code Modal -->
-    <div class="qr-modal" id="qrModal"
-         role="dialog" aria-modal="true"
-         aria-labelledby="qrTitle" aria-hidden="true">
-        <div class="qr-modal-overlay" id="qrOverlay"></div>
-        <div class="qr-modal-content">
-            <button class="qr-close" id="qrClose" aria-label="Close QR modal">
-                <i class="fas fa-times" aria-hidden="true"></i>
-            </button>
-            <h3 class="qr-title" id="qrTitle">
-                <i class="fas fa-qrcode" aria-hidden="true"></i> Scan to Visit Portfolio
-            </h3>
-            <div class="qr-code" id="qrCodeContainer">
-                <canvas id="qrCanvas" aria-label="QR code for portfolio URL"></canvas>
+            <div class="qr-modal" id="qrModal" role="dialog"
+                aria-modal="true" aria-labelledby="qrModalTitle" aria-hidden="true">
+                
+                <div class="qr-modal-overlay" id="qrOverlay"></div>
+                
+                <div class="qr-modal-content">
+
+                    <!-- Close -->
+                    <button class="qr-close" id="qrClose" aria-label="Close QR Modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+
+                    <!-- Title -->
+                    <div class="qr-title" id="qrModalTitle">
+                        <i class="fas fa-qrcode"></i>
+                        <span id="qrModalTitleText">SCAN PORTFOLIO</span>
+                    </div>
+
+                    <!-- Mode Badge -->
+                    <div class="qr-mode-label" id="qrModeLabel">
+                        <i class="fas fa-globe"></i>
+                        <span id="qrModeLabelText">PORTFOLIO MODE</span>
+                    </div>
+
+                    <!-- QR Box -->
+                    <div class="qr-code" id="qrCodeBox">
+                        <canvas id="qrCanvas"></canvas>
+                    </div>
+
+                    <!-- URL -->
+                    <p class="qr-url" id="qrUrl">loading...</p>
+                    <p class="qr-hint">
+                        <i class="fas fa-camera"></i>
+                        Point camera at QR to open
+                    </p>
+
+                    <!-- Save QR Image -->
+                    <div class="qr-btn-group" style="margin-bottom: 0;">
+                        <button class="qr-action-btn" id="qrDownload">
+                            <i class="fas fa-image"></i> SAVE QR IMAGE
+                        </button>
+                    </div>
+
+                    <hr class="qr-divider">
+
+                    <!-- CV Section -->
+                    
+
+                    <div class="qr-btn-group">
+                        <!-- Toggle CV QR -->
+                        <button class="qr-action-btn" id="qrSwitchCV">
+                            <i class="fas fa-qrcode"></i>
+                            <span id="qrSwitchText">SCAN CV QR</span>
+                        </button>
+                        <!-- Direct Download -->
+                        <a href="assets/Sanket-Brahmbhatt-CV.pdf"
+                        download="Sanket-Brahmbhatt-CV.pdf"
+                        class="qr-action-btn btn-filled"
+                        id="qrDownloadCV">
+                            <i class="fas fa-download"></i> GET CV
+                        </a>
+                    </div>
+
+                </div>
             </div>
-            <p class="qr-url" id="qrUrl">sanketbrahmbhatt.com</p>
-            <p class="qr-hint">Scan with your phone camera</p>
-            <button class="qr-download-btn" id="qrDownload" aria-label="Download QR code image">
-                <i class="fas fa-download" aria-hidden="true"></i> Download QR Image
-            </button>
-        </div>
-    </div>
 
     <!-- Calendly Modal -->
     <div class="calendly-modal" id="calendlyModal"

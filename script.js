@@ -1433,82 +1433,174 @@
         /* ==========================================
            25. QR CODE
            ========================================== */
-        const qrModal = document.getElementById('qrModal');
-        const qrClose = document.getElementById('qrClose');
-        const qrOverlay = document.getElementById('qrOverlay');
-        const qrCanvas = document.getElementById('qrCanvas');
-        const qrUrlEl = document.getElementById('qrUrl');
-        const shareQRBtn = document.getElementById('shareQR');
+       (function () {
 
-        function closeQRModal() {
-            if (qrModal) {
-                qrModal.classList.remove('active');
-                qrModal.setAttribute('aria-hidden', 'true');
-            }
-        }
+    /* ── Refs ── */
+    const qrModal          = document.getElementById('qrModal');
+    const qrClose          = document.getElementById('qrClose');
+    const qrOverlay        = document.getElementById('qrOverlay');
+    const qrCanvas         = document.getElementById('qrCanvas');
+    const qrUrlEl          = document.getElementById('qrUrl');
+    const shareQRBtn       = document.getElementById('shareQR');
+    const qrDownload       = document.getElementById('qrDownload');
+    const qrSwitchCV       = document.getElementById('qrSwitchCV');
+    const qrSwitchText     = document.getElementById('qrSwitchText');
+    const qrModeLabel      = document.getElementById('qrModeLabel');
+    const qrModeLabelText  = document.getElementById('qrModeLabelText');
+    const qrModalTitleText = document.getElementById('qrModalTitleText');
 
-        if (shareQRBtn) {
-            shareQRBtn.addEventListener('click', () => {
-                if (qrModal) {
-                    qrModal.classList.add('active');
-                    qrModal.setAttribute('aria-hidden', 'false');
-                    generateQR();
-                }
+    /* ── Config  ── */
+    const PORTFOLIO_URL = window.location.href;
+    const CV_PATH       = 'assets/cv/Sanket_Brahmbhatt_CV.pdf';
+    const CV_URL        = `${window.location.origin}/${CV_PATH}`;
+
+    let currentMode = 'portfolio';
+    let qrInstance  = null;
+
+    /* ─────────────────────────────────────────
+       Generate REAL QR using QRious
+    ───────────────────────────────────────── */
+    function generateQR(url) {
+        if (!qrCanvas) return;
+
+        /* 
+         * Render at HIGH resolution (380px internal)
+         * CSS forces display at 192px → crisp & sharp
+         */
+        const RENDER_SIZE = 380;
+
+        if (qrInstance) {
+            qrInstance.value = url;
+            qrInstance.size  = RENDER_SIZE;
+        } else {
+            qrInstance = new QRious({
+                element    : qrCanvas,
+                value      : url,
+                size       : RENDER_SIZE,   // ← HIGH RES internal render
+                level      : 'H',           // High error correction
+                background : '#ffffff',
+                foreground : '#0d0d0d',
+                padding    : 16,
             });
         }
 
-        function generateQR() {
-            if (!qrCanvas) return;
-            const ctx = qrCanvas.getContext('2d');
-            const size = 170;
-            qrCanvas.width = size;
-            qrCanvas.height = size;
-
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, size, size);
-
-            const cellSize = 5;
-            const url = portfolioURL;
-
-            ctx.fillStyle = '#000000';
-            for (let i = 0; i < size / cellSize; i++) {
-                for (let j = 0; j < size / cellSize; j++) {
-                    const charCode = url.charCodeAt((i * (size / cellSize) + j) % url.length);
-                    if ((charCode + i + j) % 3 === 0) {
-                        ctx.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
-                    }
-                }
+        /* URL display */
+        if (qrUrlEl) {
+            try {
+                qrUrlEl.textContent = new URL(url).hostname +
+                    (currentMode === 'cv' ? '/cv' : '');
+            } catch {
+                qrUrlEl.textContent = url.slice(0, 40);
             }
+        }
+    }
 
-            drawFinderPattern(ctx, 0, 0, cellSize);
-            drawFinderPattern(ctx, size - 7 * cellSize, 0, cellSize);
-            drawFinderPattern(ctx, 0, size - 7 * cellSize, cellSize);
+    /* ─────────────────────────────────────────
+       Update UI labels based on mode
+    ───────────────────────────────────────── */
+    function updateModeUI() {
+        const isCV = currentMode === 'cv';
 
-            if (qrUrlEl) qrUrlEl.textContent = window.location.hostname || 'portfolio';
+        /* Title */
+        if (qrModalTitleText) {
+            qrModalTitleText.textContent = isCV
+                ? 'SCAN TO GET CV'
+                : 'SCAN PORTFOLIO';
         }
 
-        function drawFinderPattern(ctx, x, y, cell) {
-            ctx.fillStyle = '#000000';
-            ctx.fillRect(x, y, 7 * cell, 7 * cell);
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(x + cell, y + cell, 5 * cell, 5 * cell);
-            ctx.fillStyle = '#000000';
-            ctx.fillRect(x + 2 * cell, y + 2 * cell, 3 * cell, 3 * cell);
+        /* Mode badge */
+        if (qrModeLabelText) {
+            qrModeLabelText.textContent = isCV
+                ? 'CV / RESUME MODE'
+                : 'PORTFOLIO MODE';
+        }
+        if (qrModeLabel) {
+            const icon = qrModeLabel.querySelector('i');
+            if (icon) {
+                icon.className = isCV
+                    ? 'fas fa-file-pdf'
+                    : 'fas fa-globe';
+            }
         }
 
-        const qrDownload = document.getElementById('qrDownload');
-        if (qrDownload && qrCanvas) {
-            qrDownload.addEventListener('click', () => {
-                const link = document.createElement('a');
-                link.download = 'sanket-brahmbhatt-portfolio-qr.png';
-                link.href = qrCanvas.toDataURL();
-                link.click();
-                showToast('QR Code downloaded!', 'fas fa-qrcode');
-            });
+        /* Switch button */
+        if (qrSwitchText) {
+            qrSwitchText.textContent = isCV
+                ? 'SCAN PORTFOLIO QR'
+                : 'SCAN CV QR';
         }
+        if (qrSwitchCV) {
+            qrSwitchCV.classList.toggle('btn-filled', isCV);
+        }
+    }
 
-        if (qrClose) qrClose.addEventListener('click', closeQRModal);
-        if (qrOverlay) qrOverlay.addEventListener('click', closeQRModal);
+    /* ─────────────────────────────────────────
+       Open / Close
+    ───────────────────────────────────────── */
+    function openQRModal() {
+        if (!qrModal) return;
+        currentMode = 'portfolio';
+        qrModal.classList.add('active');
+        qrModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        generateQR(PORTFOLIO_URL);
+        updateModeUI();
+        setTimeout(() => qrClose && qrClose.focus(), 100);
+    }
+
+    function closeQRModal() {
+        if (!qrModal) return;
+        qrModal.classList.remove('active');
+        qrModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        shareQRBtn && shareQRBtn.focus();
+    }
+
+    /* ─────────────────────────────────────────
+       Download QR as Image
+    ───────────────────────────────────────── */
+    function downloadQRImage() {
+        if (!qrCanvas) return;
+
+        const label = currentMode === 'cv'
+            ? 'Sanket_CV_QR'
+            : 'Sanket_Portfolio_QR';
+
+        const link      = document.createElement('a');
+        link.download   = `${label}.png`;
+        link.href       = qrCanvas.toDataURL('image/png');
+        link.click();
+
+        if (typeof showToast === 'function') {
+            showToast('QR Code saved!', 'fas fa-check-circle');
+        }
+    }
+
+    /* ─────────────────────────────────────────
+       Switch Portfolio ↔ CV QR
+    ───────────────────────────────────────── */
+    function switchMode() {
+        currentMode = currentMode === 'portfolio' ? 'cv' : 'portfolio';
+        generateQR(currentMode === 'cv' ? CV_URL : PORTFOLIO_URL);
+        updateModeUI();
+    }
+
+    /* ─────────────────────────────────────────
+       Events
+    ───────────────────────────────────────── */
+    shareQRBtn  && shareQRBtn.addEventListener('click', openQRModal);
+    qrClose     && qrClose.addEventListener('click', closeQRModal);
+    qrOverlay   && qrOverlay.addEventListener('click', closeQRModal);
+    qrDownload  && qrDownload.addEventListener('click', downloadQRImage);
+    qrSwitchCV  && qrSwitchCV.addEventListener('click', switchMode);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && qrModal?.classList.contains('active')) {
+            closeQRModal();
+        }
+    });
+
+})();
 
         /* ==========================================
            26. CALENDLY MODAL
@@ -1991,3 +2083,17 @@
     }); /* END DOMContentLoaded */
 
 })(); /* END IIFE */
+
+
+// Copy Link Logic
+const copyBtn = document.getElementById('shareCopy');
+if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+        const url = "https://sanketbrahmbhatt.com";
+        navigator.clipboard.writeText(url).then(() => {
+            showToast('Link copied to clipboard!', 'fas fa-check');
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    });
+}
