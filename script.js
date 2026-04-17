@@ -1451,7 +1451,7 @@
 
     /* ── Config  ── */
     const PORTFOLIO_URL = window.location.href;
-    const CV_PATH       = 'assets/cv/Sanket_Brahmbhatt_CV.pdf';
+    const CV_PATH       = 'assets/Sanket_Brahmbhatt_CV.pdf';
     const CV_URL        = `${window.location.origin}/${CV_PATH}`;
 
     let currentMode = 'portfolio';
