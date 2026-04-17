@@ -30,14 +30,12 @@
 
         msgEl.textContent = message;
         if (iconEl && iconClass) {
-            iconEl.innerHTML = `<i class="${iconClass}"></i>`;
+            iconEl.innerHTML = '<i class="' + iconClass + '"></i>';
         }
 
-        /* Remove old progress bar */
         const oldProgress = toast.querySelector('.toast-progress');
         if (oldProgress) oldProgress.remove();
 
-        /* Add fresh progress bar */
         const progress = document.createElement('div');
         progress.classList.add('toast-progress');
         toast.appendChild(progress);
@@ -91,16 +89,12 @@
 
         function animate() {
             ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-
             pieces.forEach(p => {
                 p.y += p.speedY;
                 p.x += p.speedX;
                 p.rotation += p.rotSpeed;
                 p.speedY += 0.05;
-
-                if (frame > maxFrames - 60) {
-                    p.opacity -= 0.02;
-                }
+                if (frame > maxFrames - 60) p.opacity -= 0.02;
 
                 ctx.save();
                 ctx.translate(p.x, p.y);
@@ -118,7 +112,6 @@
                 ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
             }
         }
-
         animate();
     }
 
@@ -143,7 +136,6 @@
             if (loadProgress >= 100) {
                 loadProgress = 100;
                 clearInterval(loaderInterval);
-
                 setTimeout(() => {
                     if (loader) loader.classList.add('hidden');
                     document.body.style.overflow = '';
@@ -169,7 +161,7 @@
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
-                cursor.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+                cursor.style.transform = 'translate(' + (mouseX - 4) + 'px, ' + (mouseY - 4) + 'px)';
                 if (cursorText) {
                     cursorText.style.left = mouseX + 'px';
                     cursorText.style.top = mouseY + 'px';
@@ -179,14 +171,13 @@
             (function animateFollower() {
                 followerX += (mouseX - followerX) * 0.1;
                 followerY += (mouseY - followerY) * 0.1;
-                follower.style.transform = `translate(${followerX - 17}px, ${followerY - 17}px)`;
+                follower.style.transform = 'translate(' + (followerX - 17) + 'px, ' + (followerY - 17) + 'px)';
                 requestAnimationFrame(animateFollower);
             })();
 
             document.addEventListener('mousedown', () => cursor.classList.add('click'));
             document.addEventListener('mouseup', () => cursor.classList.remove('click'));
 
-            /* Hover states */
             document.querySelectorAll(
                 'a, button, .btn, .skill-card, .portfolio-card, .filter-btn, .skill-tab, .contact-card, .education-card, .timeline-card'
             ).forEach(el => {
@@ -194,7 +185,6 @@
                 el.addEventListener('mouseleave', () => follower.classList.remove('hover'));
             });
 
-            /* Text hover states */
             document.querySelectorAll('.hero-name, .section-title').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     follower.classList.add('hover-text');
@@ -239,7 +229,6 @@
 
             class Particle {
                 constructor() { this.reset(); }
-
                 reset() {
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * canvas.height;
@@ -248,7 +237,6 @@
                     this.speedY = (Math.random() - 0.5) * 0.4;
                     this.opacity = Math.random() * 0.4 + 0.1;
                 }
-
                 update() {
                     this.x += this.speedX;
                     this.y += this.speedY;
@@ -257,11 +245,10 @@
                         this.reset();
                     }
                 }
-
                 draw() {
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(${cachedRGB}, ${this.opacity})`;
+                    ctx.fillStyle = 'rgba(' + cachedRGB + ', ' + this.opacity + ')';
                     ctx.fill();
                 }
             }
@@ -275,12 +262,11 @@
                         const dx = particles[i].x - particles[j].x;
                         const dy = particles[i].y - particles[j].y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
-
                         if (dist < 130) {
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(${cachedRGB}, ${0.04 * (1 - dist / 130)})`;
+                            ctx.strokeStyle = 'rgba(' + cachedRGB + ', ' + (0.04 * (1 - dist / 130)) + ')';
                             ctx.lineWidth = 0.5;
                             ctx.stroke();
                         }
@@ -296,7 +282,6 @@
             }
             animateParticles();
 
-            /* Expose RGB updater for theme changes */
             window._updateParticleRGB = updateCachedRGB;
         }
 
@@ -315,7 +300,6 @@
                 btn.classList.add('active');
                 btn.setAttribute('aria-checked', 'true');
 
-                /* Update particle canvas colors */
                 if (typeof window._updateParticleRGB === 'function') {
                     setTimeout(window._updateParticleRGB, 50);
                 }
@@ -381,14 +365,11 @@
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
                 const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
 
-                /* Navbar */
                 if (navbar) navbar.classList.toggle('scrolled', scrollY > 50);
 
-                /* Progress bar */
                 const progressBar = document.getElementById('pageProgress');
                 if (progressBar) progressBar.style.width = progress + '%';
 
-                /* Back to top */
                 const backToTop = document.getElementById('backToTop');
                 if (backToTop) {
                     backToTop.classList.toggle('visible', scrollY > 500);
@@ -401,7 +382,6 @@
                     }
                 }
 
-                /* Floating buttons */
                 const floatingCV = document.getElementById('floatingCVBtn');
                 if (floatingCV) floatingCV.classList.toggle('visible', scrollY > 600);
 
@@ -421,7 +401,6 @@
                 const visitorEl = document.getElementById('visitorCounter');
                 if (visitorEl) visitorEl.classList.toggle('visible', scrollY > 200);
 
-                /* Click to call */
                 const clickToCall = document.getElementById('clickToCall');
                 if (clickToCall && clickToCall.style.display === 'flex') {
                     const callVisible = scrollY > 400;
@@ -479,7 +458,6 @@
             });
         }
 
-        /* Back to top button */
         const backToTopBtn = document.getElementById('backToTop');
         if (backToTopBtn) {
             backToTopBtn.addEventListener('click', () => {
@@ -575,7 +553,6 @@
 
             elements.forEach(el => observer.observe(el));
 
-            /* Skill bars */
             const skillBarObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -708,7 +685,6 @@
         if (cvModalClose) cvModalClose.addEventListener('click', closeCVModal);
         if (cvModalOverlay) cvModalOverlay.addEventListener('click', closeCVModal);
 
-        /* PDF Download Handler */
         const downloadPDFBtn = document.getElementById('downloadPDF');
         if (downloadPDFBtn) {
             downloadPDFBtn.addEventListener('click', (e) => {
@@ -716,33 +692,25 @@
                 const hasRealFile = href && href !== '#' && !href.startsWith('javascript');
 
                 if (hasRealFile) {
-                    /* Real PDF — let browser handle download */
                     trackEvent('CV', 'download', 'PDF');
-
                     const count = parseInt(localStorage.getItem('sb_cv_downloads') || '0') + 1;
                     localStorage.setItem('sb_cv_downloads', count);
 
                     setTimeout(() => {
                         if (cvSuccess) cvSuccess.classList.add('active');
                         showToast('CV downloaded successfully!', 'fas fa-download');
-
                         setTimeout(() => {
                             if (cvSuccess) cvSuccess.classList.remove('active');
                             closeCVModal();
                         }, 2000);
                     }, 500);
                 } else {
-                    /* No file — show simulation */
                     e.preventDefault();
-
                     if (cvGenerating) cvGenerating.classList.add('active');
-
                     setTimeout(() => {
                         if (cvGenerating) cvGenerating.classList.remove('active');
                         if (cvSuccess) cvSuccess.classList.add('active');
-
                         showToast('CV file not uploaded yet. Add your PDF to assets/ folder.', 'fas fa-exclamation-circle');
-
                         setTimeout(() => {
                             if (cvSuccess) cvSuccess.classList.remove('active');
                             closeCVModal();
@@ -837,7 +805,6 @@
         const lightboxPrev = lightbox ? lightbox.querySelector('.lightbox-prev') : null;
         const lightboxNext = lightbox ? lightbox.querySelector('.lightbox-next') : null;
 
-        /* Build project data from DOM */
         const projectData = [];
         document.querySelectorAll('.portfolio-item').forEach(item => {
             const overlay = item.querySelector('.portfolio-overlay-content');
@@ -876,16 +843,15 @@
 
             const placeholder = lightboxImage ? lightboxImage.querySelector('.lightbox-placeholder') : null;
             if (placeholder) {
-                placeholder.innerHTML = `<i class="${data.icon}"></i><span>${data.category}</span>`;
+                placeholder.innerHTML = '<i class="' + data.icon + '"></i><span>' + data.category + '</span>';
             }
 
             if (lightboxInfo) {
-                const tagsHTML = data.tags.map(t => `<span>${t}</span>`).join('');
-                lightboxInfo.innerHTML = `
-                    <h3>${data.title}</h3>
-                    <p>${data.desc}</p>
-                    <div class="lightbox-tags">${tagsHTML}</div>
-                `;
+                const tagsHTML = data.tags.map(t => '<span>' + t + '</span>').join('');
+                lightboxInfo.innerHTML =
+                    '<h3>' + data.title + '</h3>' +
+                    '<p>' + data.desc + '</p>' +
+                    '<div class="lightbox-tags">' + tagsHTML + '</div>';
             }
         }
 
@@ -906,7 +872,6 @@
             });
         }
 
-        /* Touch swipe for lightbox */
         let lbTouchStartX = 0;
         if (lightbox) {
             lightbox.addEventListener('touchstart', (e) => {
@@ -930,7 +895,7 @@
                     const rect = btn.getBoundingClientRect();
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+                    btn.style.transform = 'translate(' + (x * 0.15) + 'px, ' + (y * 0.15) + 'px)';
                 });
                 btn.addEventListener('mouseleave', () => {
                     btn.style.transform = '';
@@ -949,7 +914,7 @@
                     const y = (e.clientY - rect.top) / rect.height;
                     const rotX = (0.5 - y) * 12;
                     const rotY = (x - 0.5) * 12;
-                    card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+                    card.style.transform = 'perspective(1000px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) scale(1.02)';
                 });
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = '';
@@ -958,7 +923,7 @@
         }
 
         /* ==========================================
-           18. CONTACT FORM (with EmailJS support)
+           18. CONTACT FORM
            ========================================== */
         const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
         const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
@@ -976,11 +941,7 @@
             if (!formStatus) return;
             formStatus.textContent = message;
             formStatus.className = 'form-status form-status-' + type + ' visible';
-
-            if (type === 'success') {
-                launchConfetti();
-            }
-
+            if (type === 'success') launchConfetti();
             if (type === 'success' || type === 'error') {
                 setTimeout(() => formStatus.classList.remove('visible'), 5000);
             }
@@ -995,7 +956,6 @@
                 const subjectVal = contactForm.querySelector('#subject')?.value.trim();
                 const messageVal = contactForm.querySelector('#message')?.value.trim();
 
-                /* Validation */
                 if (!nameVal || !emailVal || !messageVal) {
                     showFormStatus('Please fill all required fields.', 'error');
                     showToast('Please fill all required fields.', 'fas fa-exclamation-circle');
@@ -1008,7 +968,6 @@
                     return;
                 }
 
-                /* Show sending state */
                 const btnText = submitBtn?.querySelector('.btn-text');
                 const btnIcon = submitBtn?.querySelector('.btn-icon');
                 if (btnText) btnText.textContent = 'SENDING...';
@@ -1041,7 +1000,6 @@
                     trackEvent('Contact', 'form_submit', 'error');
                 }
 
-                /* Reset button */
                 if (btnText) btnText.textContent = 'SEND MESSAGE';
                 if (btnIcon) btnIcon.innerHTML = '<i class="fas fa-paper-plane"></i>';
                 if (submitBtn) submitBtn.disabled = false;
@@ -1125,7 +1083,7 @@
                 dot.classList.add('t-dot');
                 if (i === 0) dot.classList.add('active');
                 dot.dataset.index = i;
-                dot.setAttribute('aria-label', `Show review ${i + 1}`);
+                dot.setAttribute('aria-label', 'Show review ' + (i + 1));
                 dot.addEventListener('click', () => {
                     goToTestimonial(i);
                     resetTestimonialTimer();
@@ -1137,7 +1095,7 @@
         function goToTestimonial(index) {
             if (!testimonialTrack) return;
             currentTestimonial = index;
-            testimonialTrack.style.transform = `translateX(-${index * 100}%)`;
+            testimonialTrack.style.transform = 'translateX(-' + (index * 100) + '%)';
             document.querySelectorAll('.t-dot').forEach((d, i) => {
                 d.classList.toggle('active', i === index);
             });
@@ -1160,7 +1118,6 @@
         if (tNextBtn) tNextBtn.addEventListener('click', () => { nextTestimonial(); resetTestimonialTimer(); });
         if (testimonialCards.length > 0) testimonialTimer = setInterval(nextTestimonial, 6000);
 
-        /* Swipe support */
         let tTouchStartX = 0;
         if (testimonialTrack) {
             testimonialTrack.addEventListener('touchstart', e => {
@@ -1320,43 +1277,41 @@
             const body = document.getElementById('projectDetailBody');
 
             if (header) {
-                header.innerHTML = `
-                    <div class="project-detail-icon"><i class="${data.icon}"></i></div>
-                    <div>
-                        <span class="project-detail-category">${data.category}</span>
-                        <h3 class="project-detail-title" id="projectDetailTitle">${data.title}</h3>
-                    </div>
-                `;
+                header.innerHTML =
+                    '<div class="project-detail-icon"><i class="' + data.icon + '"></i></div>' +
+                    '<div>' +
+                    '<span class="project-detail-category">' + data.category + '</span>' +
+                    '<h3 class="project-detail-title" id="projectDetailTitle">' + data.title + '</h3>' +
+                    '</div>';
             }
 
             if (body) {
-                const tasksHTML = data.tasks.map(t => `<li>${t}</li>`).join('');
-                const findingsHTML = data.findings.map(f => `<li>${f}</li>`).join('');
-                const toolsHTML = data.tools.map(t => `<span>${t}</span>`).join('');
+                const tasksHTML = data.tasks.map(t => '<li>' + t + '</li>').join('');
+                const findingsHTML = data.findings.map(f => '<li>' + f + '</li>').join('');
+                const toolsHTML = data.tools.map(t => '<span>' + t + '</span>').join('');
 
-                body.innerHTML = `
-                    <div class="project-detail-section">
-                        <h4><i class="fas fa-info-circle"></i> Overview</h4>
-                        <p>${data.overview}</p>
-                    </div>
-                    <div class="project-detail-section">
-                        <h4><i class="fas fa-tasks"></i> Testing Activities</h4>
-                        <ul class="project-tasks">${tasksHTML}</ul>
-                    </div>
-                    <div class="project-detail-section">
-                        <h4><i class="fas fa-bug"></i> Key Findings</h4>
-                        <ul class="project-findings">${findingsHTML}</ul>
-                    </div>
-                    <div class="project-detail-section">
-                        <h4><i class="fas fa-tools"></i> Tools Used</h4>
-                        <div class="project-tools">${toolsHTML}</div>
-                    </div>
-                    <div class="project-detail-stats">
-                        <div class="project-stat"><span class="project-stat-num">${data.stats.testCases}</span><span class="project-stat-label">Test Cases</span></div>
-                        <div class="project-stat"><span class="project-stat-num">${data.stats.bugs}</span><span class="project-stat-label">Bugs Found</span></div>
-                        <div class="project-stat"><span class="project-stat-num">${data.stats.critical}</span><span class="project-stat-label">Critical</span></div>
-                    </div>
-                `;
+                body.innerHTML =
+                    '<div class="project-detail-section">' +
+                    '<h4><i class="fas fa-info-circle"></i> Overview</h4>' +
+                    '<p>' + data.overview + '</p>' +
+                    '</div>' +
+                    '<div class="project-detail-section">' +
+                    '<h4><i class="fas fa-tasks"></i> Testing Activities</h4>' +
+                    '<ul class="project-tasks">' + tasksHTML + '</ul>' +
+                    '</div>' +
+                    '<div class="project-detail-section">' +
+                    '<h4><i class="fas fa-bug"></i> Key Findings</h4>' +
+                    '<ul class="project-findings">' + findingsHTML + '</ul>' +
+                    '</div>' +
+                    '<div class="project-detail-section">' +
+                    '<h4><i class="fas fa-tools"></i> Tools Used</h4>' +
+                    '<div class="project-tools">' + toolsHTML + '</div>' +
+                    '</div>' +
+                    '<div class="project-detail-stats">' +
+                    '<div class="project-stat"><span class="project-stat-num">' + data.stats.testCases + '</span><span class="project-stat-label">Test Cases</span></div>' +
+                    '<div class="project-stat"><span class="project-stat-num">' + data.stats.bugs + '</span><span class="project-stat-label">Bugs Found</span></div>' +
+                    '<div class="project-stat"><span class="project-stat-num">' + data.stats.critical + '</span><span class="project-stat-label">Critical</span></div>' +
+                    '</div>';
             }
 
             projectDetailModal.classList.add('active');
@@ -1381,7 +1336,6 @@
         const shareToggle = document.getElementById('shareToggle');
         const shareButtons = document.getElementById('shareButtons');
         const portfolioURL = window.location.href;
-        const shareTitle = 'Sanket Brahmbhatt — QA Manual Tester Portfolio';
         const shareText = 'Check out this amazing QA Tester portfolio by Sanket Brahmbhatt!';
 
         if (shareToggle && shareButtons) {
@@ -1400,24 +1354,6 @@
             });
         }
 
-        const shareConfig = {
-            shareLinkedIn: () => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(portfolioURL)}`,
-            shareTwitter: () => `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(portfolioURL)}`,
-            shareWhatsApp: () => `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + portfolioURL)}`,
-            shareFacebook: () => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(portfolioURL)}`
-        };
-
-        Object.entries(shareConfig).forEach(([id, urlFn]) => {
-            const el = document.getElementById(id);
-            if (el) {
-                el.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    window.open(urlFn(), '_blank', 'noopener,noreferrer');
-                    trackEvent('Share', 'click', id.replace('share', ''));
-                });
-            }
-        });
-
         const shareCopy = document.getElementById('shareCopy');
         if (shareCopy) {
             shareCopy.addEventListener('click', () => {
@@ -1433,9 +1369,7 @@
         /* ==========================================
            25. QR CODE
            ========================================== */
-       (function () {
-
-    /* ── Refs ── */
+        (function () {
     const qrModal          = document.getElementById('qrModal');
     const qrClose          = document.getElementById('qrClose');
     const qrOverlay        = document.getElementById('qrOverlay');
@@ -1449,94 +1383,68 @@
     const qrModeLabelText  = document.getElementById('qrModeLabelText');
     const qrModalTitleText = document.getElementById('qrModalTitleText');
 
-    /* ── Config  ── */
     const PORTFOLIO_URL = window.location.href;
-    const CV_PATH       = 'assets/Sanket_Brahmbhatt_CV.pdf';
-    const CV_URL        = `${window.location.origin}/${CV_PATH}`;
+    const CV_PATH = 'assets/Sanket_Brahmbhatt_CV.pdf';
+    const CV_URL = new URL(CV_PATH, window.location.href).href;
+
+    console.log('Portfolio URL:', PORTFOLIO_URL);
+    console.log('CV URL:', CV_URL);
 
     let currentMode = 'portfolio';
-    let qrInstance  = null;
+    let qrInstance = null;
 
-    /* ─────────────────────────────────────────
-       Generate REAL QR using QRious
-    ───────────────────────────────────────── */
     function generateQR(url) {
         if (!qrCanvas) return;
 
-        /* 
-         * Render at HIGH resolution (380px internal)
-         * CSS forces display at 192px → crisp & sharp
-         */
         const RENDER_SIZE = 380;
 
         if (qrInstance) {
             qrInstance.value = url;
-            qrInstance.size  = RENDER_SIZE;
+            qrInstance.size = RENDER_SIZE;
         } else {
             qrInstance = new QRious({
-                element    : qrCanvas,
-                value      : url,
-                size       : RENDER_SIZE,   // ← HIGH RES internal render
-                level      : 'H',           // High error correction
-                background : '#ffffff',
-                foreground : '#0d0d0d',
-                padding    : 16,
+                element: qrCanvas,
+                value: url,
+                size: RENDER_SIZE,
+                level: 'H',
+                background: '#ffffff',
+                foreground: '#0d0d0d',
+                padding: 16
             });
         }
 
-        /* URL display */
         if (qrUrlEl) {
-            try {
-                qrUrlEl.textContent = new URL(url).hostname +
-                    (currentMode === 'cv' ? '/cv' : '');
-            } catch {
-                qrUrlEl.textContent = url.slice(0, 40);
-            }
+            qrUrlEl.textContent = url;
         }
     }
 
-    /* ─────────────────────────────────────────
-       Update UI labels based on mode
-    ───────────────────────────────────────── */
     function updateModeUI() {
         const isCV = currentMode === 'cv';
 
-        /* Title */
         if (qrModalTitleText) {
-            qrModalTitleText.textContent = isCV
-                ? 'SCAN TO GET CV'
-                : 'SCAN PORTFOLIO';
+            qrModalTitleText.textContent = isCV ? 'SCAN TO GET CV' : 'SCAN PORTFOLIO';
         }
 
-        /* Mode badge */
         if (qrModeLabelText) {
-            qrModeLabelText.textContent = isCV
-                ? 'CV / RESUME MODE'
-                : 'PORTFOLIO MODE';
+            qrModeLabelText.textContent = isCV ? 'CV / RESUME MODE' : 'PORTFOLIO MODE';
         }
+
         if (qrModeLabel) {
             const icon = qrModeLabel.querySelector('i');
             if (icon) {
-                icon.className = isCV
-                    ? 'fas fa-file-pdf'
-                    : 'fas fa-globe';
+                icon.className = isCV ? 'fas fa-file-pdf' : 'fas fa-globe';
             }
         }
 
-        /* Switch button */
         if (qrSwitchText) {
-            qrSwitchText.textContent = isCV
-                ? 'SCAN PORTFOLIO QR'
-                : 'SCAN CV QR';
+            qrSwitchText.textContent = isCV ? 'SCAN PORTFOLIO QR' : 'SCAN CV QR';
         }
+
         if (qrSwitchCV) {
             qrSwitchCV.classList.toggle('btn-filled', isCV);
         }
     }
 
-    /* ─────────────────────────────────────────
-       Open / Close
-    ───────────────────────────────────────── */
     function openQRModal() {
         if (!qrModal) return;
         currentMode = 'portfolio';
@@ -1545,7 +1453,6 @@
         document.body.style.overflow = 'hidden';
         generateQR(PORTFOLIO_URL);
         updateModeUI();
-        setTimeout(() => qrClose && qrClose.focus(), 100);
     }
 
     function closeQRModal() {
@@ -1553,53 +1460,30 @@
         qrModal.classList.remove('active');
         qrModal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
-        shareQRBtn && shareQRBtn.focus();
     }
 
-    /* ─────────────────────────────────────────
-       Download QR as Image
-    ───────────────────────────────────────── */
     function downloadQRImage() {
         if (!qrCanvas) return;
-
-        const label = currentMode === 'cv'
-            ? 'Sanket_CV_QR'
-            : 'Sanket_Portfolio_QR';
-
-        const link      = document.createElement('a');
-        link.download   = `${label}.png`;
-        link.href       = qrCanvas.toDataURL('image/png');
+        const label = currentMode === 'cv' ? 'Sanket_CV_QR' : 'Sanket_Portfolio_QR';
+        const link = document.createElement('a');
+        link.download = label + '.png';
+        link.href = qrCanvas.toDataURL('image/png');
         link.click();
-
-        if (typeof showToast === 'function') {
-            showToast('QR Code saved!', 'fas fa-check-circle');
-        }
     }
 
-    /* ─────────────────────────────────────────
-       Switch Portfolio ↔ CV QR
-    ───────────────────────────────────────── */
     function switchMode() {
-        currentMode = currentMode === 'portfolio' ? 'cv' : 'portfolio';
-        generateQR(currentMode === 'cv' ? CV_URL : PORTFOLIO_URL);
-        updateModeUI();
-    }
+    currentMode = currentMode === 'portfolio' ? 'cv' : 'portfolio';
+    generateQR(currentMode === 'cv' ? CV_URL : PORTFOLIO_URL);
+    updateModeUI();
+}
 
-    /* ─────────────────────────────────────────
-       Events
-    ───────────────────────────────────────── */
-    shareQRBtn  && shareQRBtn.addEventListener('click', openQRModal);
-    qrClose     && qrClose.addEventListener('click', closeQRModal);
-    qrOverlay   && qrOverlay.addEventListener('click', closeQRModal);
-    qrDownload  && qrDownload.addEventListener('click', downloadQRImage);
-    qrSwitchCV  && qrSwitchCV.addEventListener('click', switchMode);
+    if (shareQRBtn) shareQRBtn.addEventListener('click', openQRModal);
+    if (qrClose) qrClose.addEventListener('click', closeQRModal);
+    if (qrOverlay) qrOverlay.addEventListener('click', closeQRModal);
+    if (qrDownload) qrDownload.addEventListener('click', downloadQRImage);
+    if (qrSwitchCV) qrSwitchCV.addEventListener('click', switchMode);
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && qrModal?.classList.contains('active')) {
-            closeQRModal();
-        }
-    });
-
+    window.closeQRModal = closeQRModal;
 })();
 
         /* ==========================================
@@ -1633,19 +1517,19 @@
         /* ==========================================
            27. BUG CATCHING GAME
            ========================================== */
-        const bugGameModal = document.getElementById('bugGameModal');
-        const bugGameClose = document.getElementById('bugGameClose');
-        const bugGameOverlay = document.getElementById('bugGameOverlay');
-        const bugGameArea = document.getElementById('bugGameArea');
-        const bugGameStart = document.getElementById('bugGameStart');
-        const bugGameOver = document.getElementById('bugGameOver');
-        const bugStartBtn = document.getElementById('bugStartBtn');
-        const bugRestartBtn = document.getElementById('bugRestartBtn');
-        const bugScoreEl = document.getElementById('bugScore');
-        const bugTimerEl = document.getElementById('bugTimer');
-        const bugHighScoreEl = document.getElementById('bugHighScore');
-        const bugFinalScore = document.getElementById('bugFinalScore');
-        const bugRating = document.getElementById('bugRating');
+        const bugGameModal    = document.getElementById('bugGameModal');
+        const bugGameClose    = document.getElementById('bugGameClose');
+        const bugGameOverlay  = document.getElementById('bugGameOverlay');
+        const bugGameArea     = document.getElementById('bugGameArea');
+        const bugGameStart    = document.getElementById('bugGameStart');
+        const bugGameOver     = document.getElementById('bugGameOver');
+        const bugStartBtn     = document.getElementById('bugStartBtn');
+        const bugRestartBtn   = document.getElementById('bugRestartBtn');
+        const bugScoreEl      = document.getElementById('bugScore');
+        const bugTimerEl      = document.getElementById('bugTimer');
+        const bugHighScoreEl  = document.getElementById('bugHighScore');
+        const bugFinalScore   = document.getElementById('bugFinalScore');
+        const bugRating       = document.getElementById('bugRating');
 
         let bugScore = 0;
         let bugTimeLeft = 30;
@@ -1702,7 +1586,6 @@
 
         function spawnBug() {
             if (!bugGameArea) return;
-
             const bug = document.createElement('div');
             bug.classList.add('game-bug');
 
@@ -1710,11 +1593,8 @@
             bug.textContent = bugEmojis[Math.floor(Math.random() * bugEmojis.length)];
 
             const areaRect = bugGameArea.getBoundingClientRect();
-            const maxX = areaRect.width - 40;
-            const maxY = areaRect.height - 40;
-
-            bug.style.left = Math.random() * maxX + 'px';
-            bug.style.top = Math.random() * maxY + 'px';
+            bug.style.left = Math.random() * (areaRect.width - 40) + 'px';
+            bug.style.top  = Math.random() * (areaRect.height - 40) + 'px';
 
             bug.addEventListener('click', () => {
                 bug.classList.add('caught');
@@ -1735,16 +1615,15 @@
 
         function endBugGame() {
             stopBugGame();
-
             if (bugFinalScore) bugFinalScore.textContent = bugScore;
             if (bugGameOver) bugGameOver.classList.add('active');
 
             let rating = '';
-            if (bugScore >= 25) rating = '⭐⭐⭐⭐⭐ QA Master!';
+            if (bugScore >= 25)      rating = '⭐⭐⭐⭐⭐ QA Master!';
             else if (bugScore >= 20) rating = '⭐⭐⭐⭐ Bug Hunter!';
             else if (bugScore >= 15) rating = '⭐⭐⭐ Good Tester!';
             else if (bugScore >= 10) rating = '⭐⭐ Keep Testing!';
-            else rating = '⭐ Rookie Tester';
+            else                     rating = '⭐ Rookie Tester';
 
             if (bugRating) bugRating.textContent = rating;
 
@@ -1769,16 +1648,16 @@
 
         const bugGameTrigger = document.getElementById('bugGameTrigger');
         if (bugGameTrigger) bugGameTrigger.addEventListener('click', openBugGame);
-        if (bugGameClose) bugGameClose.addEventListener('click', closeBugGame);
+        if (bugGameClose)   bugGameClose.addEventListener('click', closeBugGame);
         if (bugGameOverlay) bugGameOverlay.addEventListener('click', closeBugGame);
-        if (bugStartBtn) bugStartBtn.addEventListener('click', startBugGame);
-        if (bugRestartBtn) bugRestartBtn.addEventListener('click', () => { resetBugGame(); startBugGame(); });
+        if (bugStartBtn)    bugStartBtn.addEventListener('click', startBugGame);
+        if (bugRestartBtn)  bugRestartBtn.addEventListener('click', () => { resetBugGame(); startBugGame(); });
 
         /* ==========================================
            28. COOKIE CONSENT
            ========================================== */
-        const cookieBanner = document.getElementById('cookieBanner');
-        const cookieAccept = document.getElementById('cookieAccept');
+        const cookieBanner  = document.getElementById('cookieBanner');
+        const cookieAccept  = document.getElementById('cookieAccept');
         const cookieDecline = document.getElementById('cookieDecline');
 
         if (!localStorage.getItem('sb_cookie_consent') && cookieBanner) {
@@ -1803,14 +1682,13 @@
         }
 
         /* ==========================================
-           29. KEYBOARD SHORTCUTS (single handler)
+           29. KEYBOARD SHORTCUTS
            ========================================== */
         const shortcutsModal = document.getElementById('shortcutsModal');
         const shortcutsClose = document.getElementById('shortcutsClose');
-        const keyboardHint = document.getElementById('keyboardHint');
+        const keyboardHint   = document.getElementById('keyboardHint');
 
         document.addEventListener('keydown', (e) => {
-            /* Don't trigger in input fields */
             const tag = document.activeElement?.tagName.toLowerCase();
             if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
             if (e.ctrlKey || e.altKey || e.metaKey) return;
@@ -1820,7 +1698,7 @@
                     closeCVModal();
                     closeLightbox();
                     closeProjectDetail();
-                    closeQRModal();
+                    if (typeof window.closeQRModal === 'function') window.closeQRModal();
                     closeCalendly();
                     closeBugGame();
                     if (shortcutsModal) {
@@ -1880,7 +1758,6 @@
             });
         }
 
-        /* Show keyboard hint briefly */
         if (keyboardHint) {
             setTimeout(() => {
                 keyboardHint.classList.add('visible');
@@ -1932,33 +1809,27 @@
         (function updateGreeting() {
             const greetingEl = document.getElementById('greetingText');
             if (!greetingEl) return;
-
             const hour = new Date().getHours();
             let greeting = 'HELLO, I AM';
-
-            if (hour >= 5 && hour < 12) greeting = 'GOOD MORNING, I AM';
-            else if (hour >= 12 && hour < 17) greeting = 'GOOD AFTERNOON, I AM';
-            else if (hour >= 17 && hour < 21) greeting = 'GOOD EVENING, I AM';
-            else greeting = 'HELLO NIGHT OWL, I AM';
-
+            if (hour >= 5 && hour < 12)       greeting = 'GOOD MORNING, I AM';
+            else if (hour >= 12 && hour < 17)  greeting = 'GOOD AFTERNOON, I AM';
+            else if (hour >= 17 && hour < 21)  greeting = 'GOOD EVENING, I AM';
+            else                               greeting = 'HELLO NIGHT OWL, I AM';
             greetingEl.textContent = greeting;
         })();
 
         /* ==========================================
-           32. VISITOR COUNTER (localStorage)
+           32. VISITOR COUNTER
            ========================================== */
         (function initVisitorCounter() {
             const counterEl = document.getElementById('visitorCount');
             if (!counterEl) return;
-
             let visits = parseInt(localStorage.getItem('sb_visit_count') || '0');
-
             if (!sessionStorage.getItem('sb_session_active')) {
                 visits++;
                 localStorage.setItem('sb_visit_count', visits);
                 sessionStorage.setItem('sb_session_active', 'true');
             }
-
             counterEl.textContent = visits;
         })();
 
@@ -1969,29 +1840,26 @@
             const perfData = performance.getEntriesByType('navigation')[0];
             if (!perfData) return;
 
-            /* Load speed */
-            const loadSpeedEl = document.getElementById('loadSpeed');
+            const loadSpeedEl    = document.getElementById('loadSpeed');
             const loadSpeedValue = document.getElementById('loadSpeedValue');
             if (loadSpeedEl && loadSpeedValue) {
                 const loadTime = ((perfData.loadEventEnd - perfData.startTime) / 1000).toFixed(1);
                 loadSpeedValue.textContent = loadTime + 's';
-
                 setTimeout(() => {
                     loadSpeedEl.classList.add('visible');
                     setTimeout(() => loadSpeedEl.classList.remove('visible'), 4000);
                 }, 2000);
             }
 
-            /* Performance score */
-            const perfScoreEl = document.getElementById('perfScore');
-            const perfValue = document.getElementById('perfValue');
+            const perfScoreEl  = document.getElementById('perfScore');
+            const perfValue    = document.getElementById('perfValue');
             const perfRingFill = document.getElementById('perfRingFill');
 
             if (perfScoreEl && perfValue && perfRingFill) {
                 setTimeout(() => {
                     const loadTimeMs = perfData.loadEventEnd - perfData.startTime;
                     let score = 95;
-                    if (loadTimeMs > 5000) score = 40;
+                    if (loadTimeMs > 5000)      score = 40;
                     else if (loadTimeMs > 3000) score = 60;
                     else if (loadTimeMs > 2000) score = 75;
                     else if (loadTimeMs > 1000) score = 85;
@@ -2002,9 +1870,9 @@
                     const offset = circumference - (score / 100) * circumference;
                     perfRingFill.style.strokeDashoffset = offset;
 
-                    if (score >= 80) perfRingFill.style.stroke = '#00ff41';
+                    if (score >= 80)      perfRingFill.style.stroke = '#00ff41';
                     else if (score >= 60) perfRingFill.style.stroke = '#ffd700';
-                    else perfRingFill.style.stroke = '#ff2d75';
+                    else                  perfRingFill.style.stroke = '#ff2d75';
 
                     perfScoreEl.classList.add('visible');
                 }, 2500);
@@ -2015,7 +1883,7 @@
            34. ONLINE/OFFLINE INDICATOR
            ========================================== */
         const networkStatus = document.getElementById('networkStatus');
-        const networkText = document.getElementById('networkText');
+        const networkText   = document.getElementById('networkText');
 
         function showNetworkStatus(isOnline) {
             if (!networkStatus) return;
@@ -2023,12 +1891,11 @@
             if (networkText) networkText.textContent = isOnline ? 'Back Online' : 'You\'re Offline';
             const icon = networkStatus.querySelector('i');
             if (icon) icon.className = isOnline ? 'fas fa-wifi' : 'fas fa-exclamation-triangle';
-
             networkStatus.classList.add('visible');
             setTimeout(() => networkStatus.classList.remove('visible'), 3000);
         }
 
-        window.addEventListener('online', () => showNetworkStatus(true));
+        window.addEventListener('online',  () => showNetworkStatus(true));
         window.addEventListener('offline', () => showNetworkStatus(false));
 
         /* ==========================================
@@ -2036,18 +1903,17 @@
            ========================================== */
         const clickToCall = document.getElementById('clickToCall');
         if (clickToCall && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
-            clickToCall.style.display = 'flex';
-            clickToCall.style.opacity = '0';
-            clickToCall.style.visibility = 'hidden';
-            clickToCall.style.transition = 'all 0.3s';
-
+            clickToCall.style.display     = 'flex';
+            clickToCall.style.opacity     = '0';
+            clickToCall.style.visibility  = 'hidden';
+            clickToCall.style.transition  = 'all 0.3s';
             clickToCall.addEventListener('click', () => {
                 trackEvent('Contact', 'click_to_call', 'mobile');
             });
         }
 
         /* ==========================================
-           36. ANALYTICS: Track Section Views & Clicks
+           36. ANALYTICS
            ========================================== */
         document.querySelectorAll('section[id]').forEach(section => {
             const sectionObserver = new IntersectionObserver((entries) => {
@@ -2068,7 +1934,6 @@
             });
         });
 
-        /* Track time on page */
         const pageStartTime = Date.now();
         window.addEventListener('beforeunload', () => {
             const timeSpent = Math.round((Date.now() - pageStartTime) / 1000);
@@ -2083,17 +1948,3 @@
     }); /* END DOMContentLoaded */
 
 })(); /* END IIFE */
-
-
-// Copy Link Logic
-const copyBtn = document.getElementById('shareCopy');
-if (copyBtn) {
-    copyBtn.addEventListener('click', () => {
-        const url = "https://sanketbrahmbhatt.com";
-        navigator.clipboard.writeText(url).then(() => {
-            showToast('Link copied to clipboard!', 'fas fa-check');
-        }).catch(err => {
-            console.error('Failed to copy: ', err);
-        });
-    });
-}
